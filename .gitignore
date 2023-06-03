@@ -11,7 +11,7 @@ Server/node_modules
 /coverage
 
 # production
-/build
+Client/build
 
 # misc
 .DS_Store
