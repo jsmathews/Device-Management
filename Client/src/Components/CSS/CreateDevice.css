@@ -1,0 +1,24 @@
+#createFormContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vh;
+    height: 40vh;
+    background-color: rgb(26, 26, 26);
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #b6b6b6;
+}
+
+#createFormContainer form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+    color: rgb(185, 184, 184);
+    font-weight: bold;
+    font-size: 1.5vh;
+    font-family: 'Roboto-Bold';
+}

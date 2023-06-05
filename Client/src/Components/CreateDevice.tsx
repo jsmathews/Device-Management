@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent, MouseEvent } from "react";
 import axios from "axios";
+import './CSS/CreateDevice.css'
 
 type DeviceFormState = {
     name: string;
@@ -33,8 +34,8 @@ function CreateDevice() {
     };
 
     return (
-        <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }} onClick={handleMouseDown}>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+        <div id="createFormContainer" onClick={handleMouseDown}>
+            <form onSubmit={handleSubmit} >
                 <label>
                     Device Name:
                     <input
@@ -78,8 +79,6 @@ function CreateDevice() {
                 <button type="submit">Submit</button>
             </form>
         </div>
-
-
     );
 }
 
