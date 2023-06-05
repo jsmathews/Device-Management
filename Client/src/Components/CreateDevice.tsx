@@ -3,17 +3,17 @@ import axios from "axios";
 import './CSS/CreateDevice.css'
 
 type DeviceFormState = {
-    name: string;
-    type: string;
-    owner: string;
+    deviceName: string;
+    deviceType: string;
+    ownerName: string;
     batteryStatus: string;
 }
 
 function CreateDevice() {
     const [device, setDevice] = useState<DeviceFormState>({
-        name: '',
-        type: '',
-        owner: '',
+        deviceName: '',
+        deviceType: '',
+        ownerName: '',
         batteryStatus: '',
     });
 
@@ -36,68 +36,71 @@ function CreateDevice() {
     return (
         <div id="createFormContainer" onClick={handleMouseDown}>
             <form onSubmit={handleSubmit} >
-                <label>
-                    Device Name:
-                    <input
-                        type="text"
-                        name="name"
-                        value={device.name}
-                        onChange={handleChange}
-                    />
-                </label>
 
-                <label>
-                    Device Type:
-                    <input
-                        type="text"
-                        name="type"
-                        value={device.type}
-                        onChange={handleChange}
-                    />
-                </label>
+                <div id="labelAndInputFieldContainer">
+                    <div id="labelContainer">
+                        <label id="label">DEVICE NAME</label>
+                    </div>
+                    <div id="inputFieldContainer" >
+                        <input id="inputField"
+                            type="text"
+                            name="deviceName"
+                            value={device.deviceName}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
 
-                <label>
-                    Owner Name:
-                    <input
-                        type="text"
-                        name="owner"
-                        value={device.owner}
-                        onChange={handleChange}
-                    />
-                </label>
+                <div id="labelAndInputFieldContainer">
+                    <div id="labelContainer">
+                        <label id="label">DEVICE TYPE</label>
+                    </div>
+                    <div id="inputFieldContainer" >
+                        <input id="inputField"
+                            type="text"
+                            name="deviceType"
+                            value={device.deviceType}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
 
-                <label>
-                    Battery Status:
-                    <input
-                        type="text"
-                        name="batteryStatus"
-                        value={device.batteryStatus}
-                        onChange={handleChange}
-                    />
-                </label>
+                <div id="labelAndInputFieldContainer">
+                    <div id="labelContainer">
+                        <label id="label">OWNER NAME</label>
+                    </div>
+                    <div id="inputFieldContainer" >
+                        <input id="inputField"
+                            type="text"
+                            name="ownerName"
+                            value={device.ownerName}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
 
-                <button type="submit">Submit</button>
+                <div id="labelAndInputFieldContainer">
+                    <div id="labelContainer">
+                        <label id="label">BATTERY STATUS</label>
+                    </div>
+                    <div id="inputFieldContainer" >
+                        <input id="inputField"
+                            type="text"
+                            name="batteryStatus"
+                            value={device.batteryStatus}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+
+                <div id="labelAndInputFieldContainer">
+                    <div id="submitButtonContainer" >
+                        <button id="submitButton" >CREATE</button>
+                    </div>
+                </div>
             </form>
         </div>
     );
 }
 
 export { CreateDevice }
-
-// import React from "react"
-
-// interface DeviceProperties {
-//     deviceName: string,
-//     deviceType: string
-// }
-
-// function CreateDevice(props: DeviceProperties) {
-//     return (
-//         <div>
-//             <div>{props.deviceName}</div>
-//             <div>{props.deviceType}</div>
-//         </div>
-//     )
-// }
-
-// export { CreateDevice }

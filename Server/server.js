@@ -41,9 +41,9 @@ app.post('/createDevice', (req, res) => {
 
     var q = "INSERT INTO deviceproperty (deviceName, deviceType, ownerName, batteryStatus) VALUES (?)";
     const values = [
-        req.body.name,
-        req.body.type,
-        req.body.owner,
+        req.body.deviceName,
+        req.body.deviceType,
+        req.body.ownerName,
         req.body.batteryStatus
     ];
 

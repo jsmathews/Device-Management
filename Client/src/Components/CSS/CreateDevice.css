@@ -20,5 +20,65 @@
     color: rgb(185, 184, 184);
     font-weight: bold;
     font-size: 1.5vh;
-    font-family: 'Roboto-Bold';
+    font-family: 'Roboto-Light';
+}
+
+#labelAndInputFieldContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 20%;
+    align-items: center;
+    justify-content: center;
+}
+
+#labelContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+}
+
+#inputFieldContainer {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+}
+
+#createFormContainer form div div input#inputField {
+    width: 90%;
+    height: 50%;
+    background-color: brown;
+    padding: 0px;
+    border: 0px;
+    background-color: rgb(50, 48, 48);
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    font-family: 'Roboto-Medium';
+    font-size: 1.5vh;
+    letter-spacing: 0.5px;
+}
+
+#submitButtonContainer {
+    display: flex;
+    width: 30%;
+    height: 50%
+}
+
+#submitButton {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: rgb(50, 48, 48);
+    color: rgb(185, 184, 184);
+    font-family: 'Roboto-Medium';
+    font-size: 1.5vh;
+    border: 0px
+}
+
+#submitButton:hover {
+    background-color: #666666;
 }
