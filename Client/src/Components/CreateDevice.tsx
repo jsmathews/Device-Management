@@ -66,7 +66,7 @@ function CreateDevice() {
 
                 <div id="labelAndInputFieldContainer">
                     <div id="labelContainer">
-                        <label id="label">DEVICE NAME</label>
+                        <label id="label">OWNER NAME</label>
                     </div>
                     <div id="inputFieldContainer" >
                         <input id="inputField"
@@ -80,7 +80,7 @@ function CreateDevice() {
 
                 <div id="labelAndInputFieldContainer">
                     <div id="labelContainer">
-                        <label id="label">DEVICE NAME</label>
+                        <label id="label">BATTERY STATUS</label>
                     </div>
                     <div id="inputFieldContainer" >
                         <input id="inputField"

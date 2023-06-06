@@ -1,11 +1,27 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import './App.css';
 import { CreateDevice } from './Components/CreateDevice';
-import { DisplayDeviceWrapper } from './Components/DisplayDevice';
+import { DisplayDevice } from './Components/DisplayDevice';
 import { UpdateDevice } from './Components/UpdateDevice';
+
+type Device = {
+  id: string;
+  deviceName: string;
+  deviceType: string;
+  ownerName: string;
+  batteryStatus: string;
+}
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isUpdateButtonClicked, setIsUpdateButtonClicked] = useState(false);
+  const [selectedDeviceValue, setSelectedDeviceValue] = useState({
+    id: '',
+    deviceName: '',
+    deviceType: '',
+    ownerName: '',
+    batteryStatus: ''
+  });
 
   const openForm = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -14,15 +30,16 @@ function App() {
 
   const closeForm = (event: MouseEvent) => {
     setIsFormOpen(false);
+    setIsUpdateButtonClicked(false)
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", position: 'relative' }} onClick={closeForm}>
-      <div id='header' style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: '5vh' }}>
+      <div id='header' style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: '10%' }}>
         <h2>DEVICE MANAGEMENT APP</h2>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '8vh', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '10%', justifyContent: 'center' }}>
         <button onClick={openForm} style={{
           borderRadius: '5px', backgroundColor: 'rgb(50,48,48)', color: 'rgb(185,184,184)', fontFamily: 'Roboto-Medium',
           fontSize: '1.5vh', border: '0px', height: '60%', justifyContent: 'center',
@@ -31,25 +48,31 @@ function App() {
 
       {/* When CreateDevices is Displayed? blur other sibling elements */}
       {isFormOpen && <CreateDevice />}
-      <UpdateDevice batteryStatus='hello' deviceName='dfsd' deviceType='afad' ownerName='fasd' />
 
-      <div id='content' style={{ display: "flex", width: "100%", height: "100%", justifyContent: 'center', alignItems: 'center' }}>
+
+      <div id='content' style={{ display: "flex", width: "100%", height: "80%", justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: "80%", height: "80%" }}>
-          <table style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th>DEVICE NAME</th>
-                <th>DEVICE TYPE</th>
-                <th>OWNER NAME</th>
-                <th>BATTERY STATUS</th>
-              </tr>
-            </thead>
-
-            {<DisplayDeviceWrapper />}
-
-          </table>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+            <div id='headerContainer' style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }} >DEVICE NAME</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>DEVICE TYPE</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>OWNER NAME</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>BATTERY STATUS</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>ACTION</div>
+            </div>
+            <div id='dataContainer' style={{ display: 'flex', width: '100%', height: '100%', overflow: 'hidden scroll' }}>
+              <DisplayDevice setSelectedDeviceValue={setSelectedDeviceValue} setIsUpdateButtonClicked={setIsUpdateButtonClicked} />
+            </div>
+          </div>
         </div>
       </div>
+
+      {isUpdateButtonClicked && <UpdateDevice id={selectedDeviceValue.id}
+        deviceName={selectedDeviceValue.deviceName}
+        deviceType={selectedDeviceValue.deviceType}
+        ownerName={selectedDeviceValue.ownerName}
+        batteryStatus={selectedDeviceValue.batteryStatus} />
+      }
     </div >
   );
 }

@@ -54,12 +54,15 @@ app.post('/createDevice', (req, res) => {
 
 });
 
-app.get('/updateDevice', (req, res) => {
-    const q = `UPDATE deviceproperty SET deviceName = ? WHERE id = ?`;
-    const id = 15;
-    const newDeviceName = 'Updated Device Name';
+app.post('/updateDevice', (req, res) => {
+    console.log(req.body)
+    var { id, deviceName, deviceType, ownerName, batteryStatus } = req.body;
 
-    db.query(q, [newDeviceName, id], function (err, result) {
+    const q = `UPDATE deviceproperty SET deviceName = ?, deviceType = ?, ownerName = ?, batteryStatus=? WHERE id = ?`;
+
+    const values = [deviceName, deviceType, ownerName, batteryStatus, id]
+
+    db.query(q, values, function (err, result) {
         if (err) return res.json(err);
         return res.json(result);
     });
