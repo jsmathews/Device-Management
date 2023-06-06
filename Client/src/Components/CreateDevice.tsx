@@ -32,23 +32,35 @@ function CreateDevice() {
         event.stopPropagation();
     };
 
+    type LabelAndInputFieldContainerProps = {
+        label: string,
+        name: string,
+        value: string
+    }
+
+    function LabelAndInputFieldContainer(props: LabelAndInputFieldContainerProps) {
+        return (
+            <div id="labelAndInputFieldContainer">
+                <div id="labelContainer">
+                    <label id="label">{props.label}</label>
+                </div>
+                <div id="inputFieldContainer" >
+                    <input id="inputField"
+                        type="text"
+                        name={props.name}
+                        value={props.value}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div id="createFormContainer" onClick={handleMouseDown}>
             <form onSubmit={handleSubmit} >
 
-                <div id="labelAndInputFieldContainer">
-                    <div id="labelContainer">
-                        <label id="label">DEVICE NAME</label>
-                    </div>
-                    <div id="inputFieldContainer" >
-                        <input id="inputField"
-                            type="text"
-                            name="deviceName"
-                            value={device.deviceName}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
+                <LabelAndInputFieldContainer label='DEVICE NAME' name='deviceName' value={device.deviceName} />
 
                 <div id="labelAndInputFieldContainer">
                     <div id="labelContainer">
@@ -64,33 +76,9 @@ function CreateDevice() {
                     </div>
                 </div>
 
-                <div id="labelAndInputFieldContainer">
-                    <div id="labelContainer">
-                        <label id="label">OWNER NAME</label>
-                    </div>
-                    <div id="inputFieldContainer" >
-                        <input id="inputField"
-                            type="text"
-                            name="ownerName"
-                            value={device.ownerName}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
+                <LabelAndInputFieldContainer label='OWNER NAME' name='ownerName' value={device.ownerName} />
 
-                <div id="labelAndInputFieldContainer">
-                    <div id="labelContainer">
-                        <label id="label">BATTERY STATUS</label>
-                    </div>
-                    <div id="inputFieldContainer" >
-                        <input id="inputField"
-                            type="text"
-                            name="batteryStatus"
-                            value={device.batteryStatus}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
+                <LabelAndInputFieldContainer label='BATTERY STATUS' name='batteryStatus' value={device.batteryStatus} />
 
                 <div id="labelAndInputFieldContainer">
                     <div id="submitButtonContainer" >

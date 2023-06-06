@@ -8,11 +8,9 @@ type Device = {
     deviceType: string;
     ownerName: string;
     batteryStatus: string;
-}
+}[]
 
-function DisplayDevice({ dataFromServer }: { dataFromServer: Device[] }) {
-    // function DisplayDevice(props: { dataFromServer: Device[] }) {
-
+function DisplayDevice({ dataFromServer }: { dataFromServer: Device }) {
     return (
         <div>
             {dataFromServer.map((item) => (
@@ -28,7 +26,7 @@ function DisplayDevice({ dataFromServer }: { dataFromServer: Device[] }) {
 }
 
 export function DisplayDeviceWrapper() {
-    const [dataFromServer, setDataFromServer] = useState<Device[]>([]);
+    const [dataFromServer, setDataFromServer] = useState<Device>([]);
 
     useEffect(() => {
         const fetchData = async () => {
