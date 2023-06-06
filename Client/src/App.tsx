@@ -2,6 +2,7 @@ import React, { useState, MouseEvent } from 'react';
 import './App.css';
 import { CreateDevice } from './Components/CreateDevice';
 import { DisplayDeviceWrapper } from './Components/DisplayDevice';
+import { UpdateDevice } from './Components/UpdateDevice';
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -30,10 +31,23 @@ function App() {
 
       {/* When CreateDevices is Displayed? blur other sibling elements */}
       {isFormOpen && <CreateDevice />}
+      <UpdateDevice batteryStatus='hello' deviceName='dfsd' deviceType='afad' ownerName='fasd' />
 
       <div id='content' style={{ display: "flex", width: "100%", height: "100%", justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: "80%", height: "80%" }}>
-          <DisplayDeviceWrapper />
+          <table style={{ width: "100%" }}>
+            <thead>
+              <tr>
+                <th>DEVICE NAME</th>
+                <th>DEVICE TYPE</th>
+                <th>OWNER NAME</th>
+                <th>BATTERY STATUS</th>
+              </tr>
+            </thead>
+
+            {<DisplayDeviceWrapper />}
+
+          </table>
         </div>
       </div>
     </div >

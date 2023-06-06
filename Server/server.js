@@ -54,6 +54,18 @@ app.post('/createDevice', (req, res) => {
 
 });
 
+app.get('/updateDevice', (req, res) => {
+    const q = `UPDATE deviceproperty SET deviceName = ? WHERE id = ?`;
+    const id = 15;
+    const newDeviceName = 'Updated Device Name';
+
+    db.query(q, [newDeviceName, id], function (err, result) {
+        if (err) return res.json(err);
+        return res.json(result);
+    });
+
+});
+
 const PORT = process.env.PORT || 5000;
 console.log('server started on port:', PORT);
 app.listen(PORT);

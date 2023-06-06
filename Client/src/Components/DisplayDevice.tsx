@@ -11,18 +11,30 @@ type Device = {
 }[]
 
 function DisplayDevice({ dataFromServer }: { dataFromServer: Device }) {
+    const handleRowClick = (id: number) => {
+        console.log('Clicked item id:', id);
+        // Perform any additional logic with the id
+    };
+
+    let content = dataFromServer.map((item) => (
+        <tr key={item.id} onClick={() => handleRowClick(item.id)}>
+            <td>{item.deviceName || "N/A"}</td>
+            <td>{item.deviceType || "N/A"}</td>
+            <td>{item.ownerName || "N/A"}</td>
+            <td>{item.batteryStatus || "N/A"}</td>
+            <td><button>update</button></td>
+            <td><button>delete</button></td>
+        </tr>
+    ))
+
     return (
-        <div>
-            {dataFromServer.map((item) => (
-                <div key={item.id}>
-                    <p>Device Name: {item.deviceName || "N/A"}</p>
-                    <p>Device Type: {item.deviceType || "N/A"}</p>
-                    <p>Owner Name: {item.ownerName || "N/A"}</p>
-                    <p>Battery Status: {item.batteryStatus || "N/A"}</p>
-                </div>
-            ))}
-        </div>
-    );
+        <tbody>
+            {content}
+        </tbody>
+
+
+    )
+
 }
 
 export function DisplayDeviceWrapper() {
@@ -42,7 +54,12 @@ export function DisplayDeviceWrapper() {
     }, []);
 
     if (dataFromServer.length === 0) {
-        return <div>Loading...</div>; // Render a loading state or placeholder while data is being fetched
+        return (<tbody>
+            <tr>
+                <td>Loading...</td>
+            </tr>
+        </tbody>
+        )  // Render a loading state or placeholder while data is being fetched
     }
 
     return <DisplayDevice dataFromServer={dataFromServer} />;
