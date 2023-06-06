@@ -17,16 +17,15 @@ function CreateDevice() {
         batteryStatus: '',
     });
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
         setDevice({ ...device, [name]: value });
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         axios.post('http://localhost:5000/createDevice', device).then((res) => { console.log('res:', res.data) })
-        console.log(device);
+        console.log(device)
     };
 
     const handleMouseDown = (event: MouseEvent) => {
@@ -56,12 +55,12 @@ function CreateDevice() {
                         <label id="label">DEVICE TYPE</label>
                     </div>
                     <div id="inputFieldContainer" >
-                        <input id="inputField"
-                            type="text"
-                            name="deviceType"
-                            value={device.deviceType}
-                            onChange={handleChange}
-                        />
+                        <select id="selectField" name="deviceType" onChange={handleChange} >
+                            <option value="">select an option</option>
+                            <option value="Smartphone">Smartphone</option>
+                            <option value="Tablet">Tablet</option>
+                            <option value="Camera">Camera</option>
+                        </select>
                     </div>
                 </div>
 

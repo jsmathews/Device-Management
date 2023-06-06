@@ -50,9 +50,23 @@
 #createFormContainer form div div input#inputField {
     width: 90%;
     height: 50%;
-    background-color: brown;
-    padding: 0px;
     border: 0px;
+    padding: 2px;
+    background-color: rgb(50, 48, 48);
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    font-family: 'Roboto-Medium';
+    font-size: 1.5vh;
+    letter-spacing: 0.5px;
+    box-sizing: border-box;
+}
+
+select#selectField {
+    width: 90%;
+    height: 50%;
+    border: 0px;
+    padding: 2px;
     background-color: rgb(50, 48, 48);
     border-radius: 5px;
     outline: none;

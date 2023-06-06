@@ -1,8 +1,7 @@
 import React, { useState, MouseEvent } from 'react';
-import logo from './logo.svg';
-import flowers from './icons/flower.jpg';
 import './App.css';
 import { CreateDevice } from './Components/CreateDevice';
+import { DisplayDeviceWrapper } from './Components/DisplayDevice';
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -22,19 +21,19 @@ function App() {
         <h2>DEVICE MANAGEMENT APP</h2>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '8vh' }}>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '8vh', justifyContent: 'center' }}>
         <button onClick={openForm} style={{
           borderRadius: '5px', backgroundColor: 'rgb(50,48,48)', color: 'rgb(185,184,184)', fontFamily: 'Roboto-Medium',
-          fontSize: '1.5vh', border: '0px', height: '60%', justifyContent: 'center'
+          fontSize: '1.5vh', border: '0px', height: '60%', justifyContent: 'center',
         }}>ADD NEW DEVICE</button>
       </div>
 
       {/* When CreateDevices is Displayed? blur other sibling elements */}
       {isFormOpen && <CreateDevice />}
 
-      <div id='content' style={{ display: "flex", width: "100%", height: "100%" }}>
-        <div style={{ width: "100%", height: "100%" }}>
-
+      <div id='content' style={{ display: "flex", width: "100%", height: "100%", justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ width: "80%", height: "80%" }}>
+          <DisplayDeviceWrapper />
         </div>
       </div>
     </div >
