@@ -12,7 +12,7 @@ type Device = {
 
 type setStatusProp = 'loading' | 'success' | 'error';
 
-interface ChildComponentProps {
+interface DisplayDeviceProps {
     setSelectedDeviceValue: React.Dispatch<React.SetStateAction<{
         id: string;
         deviceName: string;
@@ -20,10 +20,14 @@ interface ChildComponentProps {
         ownerName: string;
         batteryStatus: string;
     }>>,
-    setIsUpdateButtonClicked: React.Dispatch<React.SetStateAction<boolean>>
+    setIsUpdateButtonClicked: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsDeleteButtonClicked: React.Dispatch<React.SetStateAction<{
+        status: boolean,
+        id: string
+    }>>
 }
 
-export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked }: ChildComponentProps) {
+export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked, setIsDeleteButtonClicked }: DisplayDeviceProps) {
 
     const [status, setStatus] = useState<setStatusProp>('loading');
     const [dataFromServer, setDataFromServer] = useState<Device>([]);
@@ -44,12 +48,17 @@ export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked
         fetchData();
     }, []);
 
-    const handleClickOnUpdate = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string, }) => {
+    const handleClickOnUpdate = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
         event.stopPropagation();
         console.log('click on update button')
         setIsUpdateButtonClicked(true)
         setSelectedDeviceValue(item);
     };
+
+    const handleClickOnDelete = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
+        event.stopPropagation();
+        setIsDeleteButtonClicked((oldData) => ({ ...oldData, status: true, id: item.id }));
+    }
 
 
     let content;
@@ -75,7 +84,7 @@ export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked
                     <button onClick={(event) => handleClickOnUpdate(event, item)}>update</button>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                    <button>delete</button>
+                    <button onClick={(event) => handleClickOnDelete(event, item)}>delete</button>
                 </div>
             </div>
         ));
@@ -90,59 +99,3 @@ export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked
         </div>
     );
 }
-
-
-
-// function DisplayDeviceTest({ dataFromServer }: { dataFromServer: Device }) {
-//     const handleRowClick = (id: number) => {
-//         console.log('Clicked item id:', id);
-//         // Perform any additional logic with the id
-//     };
-
-
-//     let content = dataFromServer.map((item) => (
-//         <div style={{ display: 'flex', flexDirection: 'row' }}>
-//             <div style={{ display: 'flex', justifyContent: 'start', height: '50px', width: '20%' }}>{item.deviceName || "N/A"}</div>
-//             <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>{item.deviceType || "N/A"}</div>
-//             <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>{item.ownerName || "N/A"}</div>
-//             <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>{item.batteryStatus || "N/A"}</div>
-//             <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}><button>update</button></div>
-//             <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}><button>delete</button></div>
-//         </div>
-
-//     ))
-
-//     return (
-//         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-//             {content}
-//         </div>
-//     )
-// }
-
-// export function DisplayDeviceWrapper() {
-//     const [dataFromServer, setDataFromServer] = useState<Device>([]);
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const response = await axios.get('http://localhost:5000/readAll');
-//                 setDataFromServer(response.data);
-//             } catch (error) {
-//                 console.log(error);
-//             }
-//         };
-
-//         fetchData();
-//     }, []);
-
-//     if (dataFromServer.length === 0) {
-//         return (<tbody>
-//             <tr>
-//                 <td>Loading...</td>
-//             </tr>
-//         </tbody>
-//         )  // Render a loading state or placeholder while data is being fetched
-//     }
-
-//     return <DisplayDevice dataFromServer={dataFromServer} />;
-// }

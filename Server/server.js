@@ -55,7 +55,6 @@ app.post('/createDevice', (req, res) => {
 });
 
 app.post('/updateDevice', (req, res) => {
-    console.log(req.body)
     var { id, deviceName, deviceType, ownerName, batteryStatus } = req.body;
 
     const q = `UPDATE deviceproperty SET deviceName = ?, deviceType = ?, ownerName = ?, batteryStatus=? WHERE id = ?`;
@@ -67,6 +66,19 @@ app.post('/updateDevice', (req, res) => {
         return res.json(result);
     });
 
+});
+
+app.post('/deleteDevice', (req, res) => {
+    // console.log(req.body)
+    const { id } = req.body
+    // res.end()
+    var q = "DELETE FROM deviceproperty WHERE id = ?";
+    const values = [id]
+
+    db.query(q, [values], function (err, result) {
+        if (err) return res.json(err);
+        return res.json(result);
+    });
 });
 
 const PORT = process.env.PORT || 5000;

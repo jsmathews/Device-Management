@@ -3,6 +3,7 @@ import './App.css';
 import { CreateDevice } from './Components/CreateDevice';
 import { DisplayDevice } from './Components/DisplayDevice';
 import { UpdateDevice } from './Components/UpdateDevice';
+import { DeleteDevice } from './Components/DeleteDevice';
 
 type Device = {
   id: string;
@@ -15,6 +16,7 @@ type Device = {
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isUpdateButtonClicked, setIsUpdateButtonClicked] = useState(false);
+  const [isDeleteButtonClicked, setIsDeleteButtonClicked] = useState({ status: false, id: '' });
   const [selectedDeviceValue, setSelectedDeviceValue] = useState({
     id: '',
     deviceName: '',
@@ -61,7 +63,7 @@ function App() {
               <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>ACTION</div>
             </div>
             <div id='dataContainer' style={{ display: 'flex', width: '100%', height: '100%', overflow: 'hidden scroll' }}>
-              <DisplayDevice setSelectedDeviceValue={setSelectedDeviceValue} setIsUpdateButtonClicked={setIsUpdateButtonClicked} />
+              <DisplayDevice setSelectedDeviceValue={setSelectedDeviceValue} setIsUpdateButtonClicked={setIsUpdateButtonClicked} setIsDeleteButtonClicked={setIsDeleteButtonClicked} />
             </div>
           </div>
         </div>
@@ -73,6 +75,8 @@ function App() {
         ownerName={selectedDeviceValue.ownerName}
         batteryStatus={selectedDeviceValue.batteryStatus} />
       }
+
+      {isDeleteButtonClicked.status && <DeleteDevice setIsDeleteButtonClicked={setIsDeleteButtonClicked} isDeleteButtonClicked={isDeleteButtonClicked} />}
     </div >
   );
 }
