@@ -56,11 +56,11 @@ function App() {
         <div style={{ width: "80%", height: "80%" }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
             <div id='headerContainer' style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }} >DEVICE NAME</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>DEVICE TYPE</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>OWNER NAME</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>BATTERY STATUS</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '20%' }}>ACTION</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }} >DEVICE NAME</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }}>DEVICE TYPE</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }}>OWNER NAME</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }}>BATTERY STATUS</div>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '33.3%' }}>ACTION</div>
             </div>
             <div id='dataContainer' style={{ display: 'flex', width: '100%', height: '100%', overflow: 'hidden scroll' }}>
               <DisplayDevice setSelectedDeviceValue={setSelectedDeviceValue} setIsUpdateButtonClicked={setIsUpdateButtonClicked} setIsDeleteButtonClicked={setIsDeleteButtonClicked} />

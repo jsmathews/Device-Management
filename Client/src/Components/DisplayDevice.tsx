@@ -1,5 +1,4 @@
 import axios from "axios";
-import { type } from "os";
 import React, { useState, useEffect, MouseEvent } from "react";
 
 type Device = {
