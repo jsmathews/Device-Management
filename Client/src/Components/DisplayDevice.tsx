@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect, MouseEvent } from "react";
+import { DeleteDevice } from "./DeleteDevice";
 
 type Device = {
     id: string;
@@ -83,7 +84,8 @@ export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked
                     <button onClick={(event) => handleClickOnUpdate(event, item)}>update</button>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                    <button onClick={(event) => handleClickOnDelete(event, item)}>delete</button>
+                    {/* <button onClick={(event) => handleClickOnDelete(event, item)}>delete</button> */}
+                    <DeleteDevice selectedId={item.id} />
                 </div>
             </div>
         ));

@@ -76,7 +76,7 @@ function App() {
         batteryStatus={selectedDeviceValue.batteryStatus} />
       }
 
-      {isDeleteButtonClicked.status && <DeleteDevice setIsDeleteButtonClicked={setIsDeleteButtonClicked} isDeleteButtonClicked={isDeleteButtonClicked} />}
+      {/* {isDeleteButtonClicked.status && <DeleteDevice setIsDeleteButtonClicked={setIsDeleteButtonClicked} isDeleteButtonClicked={isDeleteButtonClicked} />} */}
     </div >
   );
 }
