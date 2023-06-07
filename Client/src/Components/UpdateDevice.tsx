@@ -3,24 +3,47 @@ import axios from "axios";
 import './CSS/CreateDevice.css'
 
 type UpdateDeviceProps = {
-    id?: string;
-    deviceName: string;
-    deviceType: string;
-    ownerName: string;
-    batteryStatus: string;
+    valueOfUpdate: {
+        isButtonClicked: boolean;
+        data: {
+            id: string;
+            deviceName: string;
+            deviceType: string;
+            ownerName: string;
+            batteryStatus: string;
+        }
+    },
+    setValueOfUpdate: React.Dispatch<React.SetStateAction<{
+        isButtonClicked: boolean,
+        data: {
+            id: string;
+            deviceName: string;
+            deviceType: string;
+            ownerName: string;
+            batteryStatus: string;
+        }
+    }>>,
+    setDataFromServer: React.Dispatch<React.SetStateAction<
+        {
+            id: string;
+            deviceName: string;
+            deviceType: string;
+            ownerName: string;
+            batteryStatus: string;
+        }[]
+    >>
 }
-
-export function UpdateDevice(props: UpdateDeviceProps) {
-    const [updatedData, setUpdatedData] = useState<UpdateDeviceProps>({ id: '', deviceName: '', deviceType: '', ownerName: '', batteryStatus: '' });
+export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServer }: UpdateDeviceProps) {
+    const [deviceProp, setDeviceProp] = useState({ id: '', deviceName: '', deviceType: '', ownerName: '', batteryStatus: '' });
 
     useEffect(() => {
         console.log('mount')
-        setUpdatedData(props);
+        setDeviceProp(valueOfUpdate.data);
     }, [])
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
-        setUpdatedData({ ...updatedData, [name]: value });
+        setDeviceProp({ ...deviceProp, [name]: value });
     };
 
     const handleMouseDown = (event: MouseEvent) => {
@@ -29,7 +52,22 @@ export function UpdateDevice(props: UpdateDeviceProps) {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        axios.post('http://localhost:5000/updateDevice', updatedData).then((res) => { console.log('res:', res.data) })
+        const fetchData = async () => {
+            try {
+                // setStatus("loading");
+                const response = await axios.get('http://localhost:5000/readAll');
+                setDataFromServer(response.data);
+                // setStatus("success");
+            } catch (error) {
+                console.log(error);
+                // setStatus("error");
+            }
+        };
+        axios.post('http://localhost:5000/updateDevice', deviceProp).then((res) => {
+            fetchData()
+            setValueOfUpdate((oldData) => ({ ...oldData, isButtonClicked: false }))
+            console.log('res:', res.data)
+        })
     };
 
 
@@ -46,7 +84,7 @@ export function UpdateDevice(props: UpdateDeviceProps) {
                         <input id="inputField"
                             type="text"
                             name="deviceName"
-                            value={updatedData.deviceName}
+                            value={deviceProp.deviceName}
                             onChange={handleChange}
                         />
                     </div>
@@ -57,7 +95,7 @@ export function UpdateDevice(props: UpdateDeviceProps) {
                         <label id="label">DEVICE TYPE</label>
                     </div>
                     <div id="inputFieldContainer" >
-                        <select id="selectField" name="deviceType" onChange={handleChange} value={updatedData.deviceType}>
+                        <select id="selectField" name="deviceType" onChange={handleChange} value={deviceProp.deviceType}>
                             <option value="">select an option</option>
                             <option value="Smartphone">Smartphone</option>
                             <option value="Tablet">Tablet</option>
@@ -74,7 +112,7 @@ export function UpdateDevice(props: UpdateDeviceProps) {
                         <input id="inputField"
                             type="text"
                             name="ownerName"
-                            value={updatedData.ownerName}
+                            value={deviceProp.ownerName}
                             onChange={handleChange}
                         />
                     </div>
@@ -88,7 +126,7 @@ export function UpdateDevice(props: UpdateDeviceProps) {
                         <input id="inputField"
                             type="text"
                             name="batteryStatus"
-                            value={updatedData.batteryStatus}
+                            value={deviceProp.batteryStatus}
                             onChange={handleChange}
                         />
                     </div>

@@ -1,18 +1,11 @@
 import React, { useState, MouseEvent, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
+import { FetchCurrentData } from './Components/FetchCurrentData';
 import { CreateDevice } from './Components/CreateDevice';
 import { DisplayDevice } from './Components/DisplayDevice';
 import { UpdateDevice } from './Components/UpdateDevice';
 import { DeleteDevice } from './Components/DeleteDevice';
-
-type Device = {
-  id: string;
-  deviceName: string;
-  deviceType: string;
-  ownerName: string;
-  batteryStatus: string;
-}
 
 type DataFromServerProp = {
   id: string;
@@ -24,35 +17,38 @@ type DataFromServerProp = {
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isUpdateButtonClicked, setIsUpdateButtonClicked] = useState(false);
-  const [isDeleteButtonClicked, setIsDeleteButtonClicked] = useState({ status: false, id: '' });
-  const [selectedDeviceValue, setSelectedDeviceValue] = useState<Device>({
-    id: '',
-    deviceName: '',
-    deviceType: '',
-    ownerName: '',
-    batteryStatus: ''
-  });
   const [dataFromServer, setDataFromServer] = useState<DataFromServerProp>([])
-
-  const fetchData = async () => {
-    try {
-      // setStatus("loading");
-      const response = await axios.get('http://localhost:5000/readAll');
-      setDataFromServer(response.data);
-      // setStatus("success");
-      // console.log('FETCH CALLED')
-    } catch (error) {
-      console.log(error);
-      // setStatus("error");
+  const [valueOfUpdate, setValueOfUpdate] = useState({
+    isButtonClicked: false,
+    data: {
+      id: '',
+      deviceName: '',
+      deviceType: '',
+      ownerName: '',
+      batteryStatus: ''
     }
-  };
-  fetchData();
-  // useEffect(() => {
-  //   fetchData();
-  //   console.log('dataFromServer modified - App.tsx');
-  //   console.log(dataFromServer)
-  // }, []);
+  })
+  const [valueOfDelete, setValueOfDelete] = useState({
+    isButtonClicked: false,
+    idToDelete: ['']
+  })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // setStatus("loading");
+        const response = await axios.get('http://localhost:5000/readAll');
+        setDataFromServer(response.data);
+        // setStatus("success");
+      } catch (error) {
+        console.log(error);
+        // setStatus("error");
+      }
+    };
+    fetchData()
+  }, [])
+
+  // FetchCurrentData({ setDataFromServer: setDataFromServer })
 
   const openForm = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -60,8 +56,8 @@ function App() {
   };
 
   const closeForm = (event: MouseEvent) => {
-    setIsFormOpen(false);
-    setIsUpdateButtonClicked(false)
+    setIsFormOpen(false)
+    setValueOfUpdate((oldData) => ({ ...oldData, isButtonClicked: false }))
   };
 
   return (
@@ -78,7 +74,7 @@ function App() {
       </div>
 
       {/* When CreateDevices is Displayed? blur other sibling elements */}
-      {isFormOpen && <CreateDevice />}
+      {isFormOpen && <CreateDevice setDataFromServer={setDataFromServer} />}
 
 
       <div id='content' style={{ display: "flex", width: "100%", height: "80%", justifyContent: 'center', alignItems: 'center' }}>
@@ -93,26 +89,24 @@ function App() {
             </div>
             <div id='dataContainer' style={{ display: 'flex', width: '100%', height: '100%', overflow: 'hidden scroll' }}>
               <DisplayDevice
-                setSelectedDeviceValue={setSelectedDeviceValue}
-                setIsUpdateButtonClicked={setIsUpdateButtonClicked}
-                setIsDeleteButtonClicked={setIsDeleteButtonClicked}
                 dataFromServer={dataFromServer}
+                setValueOfUpdate={setValueOfUpdate}
+                setValueOfDelete={setValueOfDelete}
               />
             </div>
           </div>
         </div>
       </div>
 
-      {isUpdateButtonClicked && <UpdateDevice id={selectedDeviceValue.id}
-        deviceName={selectedDeviceValue.deviceName}
-        deviceType={selectedDeviceValue.deviceType}
-        ownerName={selectedDeviceValue.ownerName}
-        batteryStatus={selectedDeviceValue.batteryStatus} />
-      }
+      {valueOfUpdate.isButtonClicked && <UpdateDevice
+        valueOfUpdate={valueOfUpdate}
+        setValueOfUpdate={setValueOfUpdate}
+        setDataFromServer={setDataFromServer}
+      />}
 
-      {isDeleteButtonClicked.status && <DeleteDevice
-        setIsDeleteButtonClicked={setIsDeleteButtonClicked}
-        isDeleteButtonClicked={isDeleteButtonClicked}
+      {valueOfDelete.isButtonClicked && <DeleteDevice
+        valueOfDelete={valueOfDelete}
+        setValueOfDelete={setValueOfDelete}
         setDataFromServer={setDataFromServer}
       />}
     </div >

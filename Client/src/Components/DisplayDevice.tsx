@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect, MouseEvent } from "react";
-import { DeleteDevice } from "./DeleteDevice";
+import React, { useState, MouseEvent } from "react";
 import Button from 'react-bootstrap/Button';
 
 type Device = {
@@ -14,47 +13,27 @@ type Device = {
 type setStatusProp = 'loading' | 'success' | 'error';
 
 interface DisplayDeviceProps {
-    setSelectedDeviceValue: React.Dispatch<React.SetStateAction<{
-        id: string;
-        deviceName: string;
-        deviceType: string;
-        ownerName: string;
-        batteryStatus: string;
+    dataFromServer: Device,
+
+    setValueOfUpdate: React.Dispatch<React.SetStateAction<{
+        isButtonClicked: boolean,
+        data: {
+            id: string;
+            deviceName: string;
+            deviceType: string;
+            ownerName: string;
+            batteryStatus: string;
+        }
     }>>,
-    setIsUpdateButtonClicked: React.Dispatch<React.SetStateAction<boolean>>,
-    setIsDeleteButtonClicked: React.Dispatch<React.SetStateAction<{
-        status: boolean,
-        id: string
-    }>>,
-    dataFromServer: Device
+    setValueOfDelete: React.Dispatch<React.SetStateAction<{
+        isButtonClicked: boolean,
+        idToDelete: string[]
+    }>>
 }
 
-export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked, setIsDeleteButtonClicked, dataFromServer }: DisplayDeviceProps) {
+export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDelete }: DisplayDeviceProps) {
 
     const [status, setStatus] = useState<setStatusProp>('loading');
-    // const [dataFromServer, setDataFromServer] = useState<Device>([]);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             setStatus("loading");
-    //             const response = await axios.get('http://localhost:5000/readAll');
-    //             setDataFromServer(response.data);
-    //             setStatus("success");
-    //         } catch (error) {
-    //             console.log(error);
-    //             setStatus("error");
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
-
-    // useEffect(() => {
-    //     console.log('dataFromServer modified - displayDevice.tsx');
-    //     console.log(dataFromServer)
-    // }, [])
-
 
     // if (dataFromServer.length == 0) {
     //     setStatus('loading')
@@ -65,14 +44,12 @@ export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked
 
     const handleClickOnUpdate = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
         event.stopPropagation();
-        console.log('click on update button')
-        setIsUpdateButtonClicked(true)
-        setSelectedDeviceValue(item);
+        setValueOfUpdate((oldData) => ({ ...oldData, isButtonClicked: true, data: item }))
     };
 
     const handleClickOnDelete = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
         event.stopPropagation();
-        setIsDeleteButtonClicked((oldData) => ({ ...oldData, status: true, id: item.id }));
+        setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: true, idToDelete: [item.id] }))
     }
 
 
@@ -96,10 +73,11 @@ export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked
                 {item.batteryStatus || 'N/A'}
             </div>
             <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                {/* <button onClick={(event) => handleClickOnUpdate(event, item)}>update</button> */}
-                <Button variant="primary" onClick={(event) => handleClickOnUpdate(event, item)}>
+                <button onClick={(event) => handleClickOnUpdate(event, item)}>update</button>
+                {/* <Button variant="primary" onClick={(event) => handleClickOnUpdate(event, item)}>
                     UPDATE
-                </Button>
+                </Button> */}
+
             </div>
             <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
                 <button onClick={(event) => handleClickOnDelete(event, item)}>delete</button>

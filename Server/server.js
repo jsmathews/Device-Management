@@ -70,10 +70,10 @@ app.post('/updateDevice', (req, res) => {
 
 app.post('/deleteDevice', (req, res) => {
     // console.log(req.body)
-    const { id } = req.body
+    const { idToDelete } = req.body
     // res.end()
     var q = "DELETE FROM deviceproperty WHERE id = ?";
-    const values = [id]
+    const values = idToDelete
 
     db.query(q, [values], function (err, result) {
         if (err) return res.json(err);

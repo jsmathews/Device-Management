@@ -1,26 +1,30 @@
 
-import React, { useState, useEffect, MouseEvent } from "react";
+import React, { MouseEvent } from "react";
 import axios from "axios";
 
 interface DeleteDeviceProps {
-    setIsDeleteButtonClicked: React.Dispatch<React.SetStateAction<{
-        status: boolean,
-        id: string
-    }>>,
-    isDeleteButtonClicked: {
-        status: boolean,
-        id: string
+    valueOfDelete: {
+        isButtonClicked: boolean;
+        idToDelete: string[]
     },
-    setDataFromServer: React.Dispatch<React.SetStateAction<{
-        id: string,
-        deviceName: string,
-        deviceType: string,
-        ownerName: string,
-        batteryStatus: string
-    }[]>>
+    setValueOfDelete: React.Dispatch<React.SetStateAction<
+        {
+            isButtonClicked: boolean;
+            idToDelete: string[]
+        }
+    >>
+    setDataFromServer: React.Dispatch<React.SetStateAction<
+        {
+            id: string;
+            deviceName: string;
+            deviceType: string;
+            ownerName: string;
+            batteryStatus: string;
+        }[]
+    >>
 }
 
-export function DeleteDevice({ setIsDeleteButtonClicked, isDeleteButtonClicked, setDataFromServer }: DeleteDeviceProps) {
+export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServer }: DeleteDeviceProps) {
     const handeClickOnYes = async (event: MouseEvent) => {
         const fetchData = async () => {
             try {
@@ -35,16 +39,14 @@ export function DeleteDevice({ setIsDeleteButtonClicked, isDeleteButtonClicked, 
             }
         };
 
-
-        axios.post('http://localhost:5000/deleteDevice', isDeleteButtonClicked).then((res) => {
+        axios.post('http://localhost:5000/deleteDevice', valueOfDelete).then((res) => {
             fetchData();
-            setIsDeleteButtonClicked((oldData) => ({ ...oldData, status: false }))
-            console.log('res:', res.data)
+            setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: false }))
         })
     }
 
     const handeClickOnNo = (event: MouseEvent) => {
-        setIsDeleteButtonClicked((oldData) => ({ ...oldData, status: false, id: '' }))
+        setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: false }))
     }
 
     return (

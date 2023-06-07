@@ -2,15 +2,20 @@ import React, { useState, ChangeEvent, FormEvent, MouseEvent } from "react";
 import axios from "axios";
 import './CSS/CreateDevice.css'
 
-type DeviceFormState = {
-    deviceName: string;
-    deviceType: string;
-    ownerName: string;
-    batteryStatus: string;
+type CreateDeviceProp = {
+    setDataFromServer: React.Dispatch<React.SetStateAction<
+        {
+            id: string;
+            deviceName: string;
+            deviceType: string;
+            ownerName: string;
+            batteryStatus: string;
+        }[]
+    >>
 }
 
-function CreateDevice() {
-    const [device, setDevice] = useState<DeviceFormState>({
+function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
+    const [deviceProp, setDeviceProp] = useState({
         deviceName: '',
         deviceType: '',
         ownerName: '',
@@ -19,13 +24,25 @@ function CreateDevice() {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
-        setDevice({ ...device, [name]: value });
+        setDeviceProp({ ...deviceProp, [name]: value });
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        axios.post('http://localhost:5000/createDevice', device).then((res) => { console.log('res:', res.data) })
-        console.log(device)
+        const fetchData = async () => {
+            try {
+                // setStatus("loading");
+                const response = await axios.get('http://localhost:5000/readAll');
+                setDataFromServer(response.data);
+                // setStatus("success");
+            } catch (error) {
+                console.log(error);
+                // setStatus("error");
+            }
+        };
+        axios.post('http://localhost:5000/createDevice', deviceProp).then((res) => {
+            fetchData();
+        });
     };
 
     const handleMouseDown = (event: MouseEvent) => {
@@ -44,7 +61,7 @@ function CreateDevice() {
                         <input id="inputField"
                             type="text"
                             name="deviceName"
-                            value={device.deviceName}
+                            value={deviceProp.deviceName}
                             onChange={handleChange}
                         />
                     </div>
@@ -72,7 +89,7 @@ function CreateDevice() {
                         <input id="inputField"
                             type="text"
                             name="ownerName"
-                            value={device.ownerName}
+                            value={deviceProp.ownerName}
                             onChange={handleChange}
                         />
                     </div>
@@ -86,7 +103,7 @@ function CreateDevice() {
                         <input id="inputField"
                             type="text"
                             name="batteryStatus"
-                            value={device.batteryStatus}
+                            value={deviceProp.batteryStatus}
                             onChange={handleChange}
                         />
                     </div>
