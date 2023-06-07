@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, MouseEvent } from "react";
 import { DeleteDevice } from "./DeleteDevice";
+import Button from 'react-bootstrap/Button';
 
 type Device = {
     id: string;
@@ -24,29 +25,43 @@ interface DisplayDeviceProps {
     setIsDeleteButtonClicked: React.Dispatch<React.SetStateAction<{
         status: boolean,
         id: string
-    }>>
+    }>>,
+    dataFromServer: Device
 }
 
-export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked, setIsDeleteButtonClicked }: DisplayDeviceProps) {
+export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked, setIsDeleteButtonClicked, dataFromServer }: DisplayDeviceProps) {
 
     const [status, setStatus] = useState<setStatusProp>('loading');
-    const [dataFromServer, setDataFromServer] = useState<Device>([]);
+    // const [dataFromServer, setDataFromServer] = useState<Device>([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setStatus("loading");
-                const response = await axios.get('http://localhost:5000/readAll');
-                setDataFromServer(response.data);
-                setStatus("success");
-            } catch (error) {
-                console.log(error);
-                setStatus("error");
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             setStatus("loading");
+    //             const response = await axios.get('http://localhost:5000/readAll');
+    //             setDataFromServer(response.data);
+    //             setStatus("success");
+    //         } catch (error) {
+    //             console.log(error);
+    //             setStatus("error");
+    //         }
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
+
+    // useEffect(() => {
+    //     console.log('dataFromServer modified - displayDevice.tsx');
+    //     console.log(dataFromServer)
+    // }, [])
+
+
+    // if (dataFromServer.length == 0) {
+    //     setStatus('loading')
+    // }
+    // else if (dataFromServer.length > 0) {
+    //     setStatus('success')
+    // }
 
     const handleClickOnUpdate = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
         event.stopPropagation();
@@ -62,37 +77,40 @@ export function DisplayDevice({ setSelectedDeviceValue, setIsUpdateButtonClicked
 
 
     let content;
-    if (status === 'loading') {
-        content = <div>Loading...</div>;
-    }
-    else if (status === 'success') {
-        content = dataFromServer.map((item) => (
-            <div key={item.id} style={{ display: 'flex', flexDirection: 'row' }}>
-                <div style={{ display: 'flex', justifyContent: 'start', height: '50px', width: '20%' }}>
-                    {item.deviceName || 'N/A'}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                    {item.deviceType || 'N/A'}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                    {item.ownerName || 'N/A'}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                    {item.batteryStatus || 'N/A'}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                    <button onClick={(event) => handleClickOnUpdate(event, item)}>update</button>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
-                    {/* <button onClick={(event) => handleClickOnDelete(event, item)}>delete</button> */}
-                    <DeleteDevice selectedId={item.id} />
-                </div>
+    // if (status === 'loading') {
+    //     content = <div>Loading...</div>;
+    // }
+    // else if (status === 'success') {
+    content = dataFromServer.map((item) => (
+        <div key={item.id} style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', justifyContent: 'start', height: '50px', width: '20%' }}>
+                {item.deviceName || 'N/A'}
             </div>
-        ));
-    }
-    else if (status === 'error') {
-        content = <div>ERROR</div>;
-    }
+            <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
+                {item.deviceType || 'N/A'}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
+                {item.ownerName || 'N/A'}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
+                {item.batteryStatus || 'N/A'}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
+                {/* <button onClick={(event) => handleClickOnUpdate(event, item)}>update</button> */}
+                <Button variant="primary" onClick={(event) => handleClickOnUpdate(event, item)}>
+                    UPDATE
+                </Button>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'start', width: '20%' }}>
+                <button onClick={(event) => handleClickOnDelete(event, item)}>delete</button>
+                {/* <DeleteDevice selectedId={item.id} /> */}
+            </div>
+        </div>
+    ));
+    // }
+    // else if (status === 'error') {
+    //     content = <div>ERROR</div>;
+    // }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
