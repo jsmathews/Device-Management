@@ -69,13 +69,12 @@ app.post('/updateDevice', (req, res) => {
 });
 
 app.post('/deleteDevice', (req, res) => {
-    // console.log(req.body)
     const { idToDelete } = req.body
-    // res.end()
-    var q = "DELETE FROM deviceproperty WHERE id = ?";
-    const values = idToDelete
+    var q = `DELETE FROM deviceproperty WHERE id IN (${idToDelete.join()})`
+    // const values = idToDelete
+    console.log(idToDelete)
 
-    db.query(q, [values], function (err, result) {
+    db.query(q, function (err, result) {
         if (err) return res.json(err);
         return res.json(result);
     });

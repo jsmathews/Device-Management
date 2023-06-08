@@ -6,6 +6,7 @@ import { CreateDevice } from './Components/CreateDevice';
 import { DisplayDevice } from './Components/DisplayDevice';
 import { UpdateDevice } from './Components/UpdateDevice';
 import { DeleteDevice } from './Components/DeleteDevice';
+import Button from 'react-bootstrap/Button';
 
 type DataFromServerProp = {
   id: string;
@@ -67,25 +68,49 @@ function App() {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '10%', justifyContent: 'center' }}>
-        <button onClick={openForm} style={{
+        {/* <button onClick={openForm} style={{
           borderRadius: '5px', backgroundColor: 'rgb(50,48,48)', color: 'rgb(185,184,184)', fontFamily: 'Roboto-Medium',
           fontSize: '1.5vh', border: '0px', height: '60%', justifyContent: 'center',
-        }}>ADD NEW DEVICE</button>
+        }}>ADD NEW DEVICE</button> */}
+
+        <Button variant="secondary" onClick={openForm}>
+          ADD NEW DEVICE
+        </Button>
       </div>
 
       {/* When CreateDevices is Displayed? blur other sibling elements */}
-      {isFormOpen && <CreateDevice setDataFromServer={setDataFromServer} />}
+      {isFormOpen && <CreateDevice setDataFromServer={setDataFromServer} setIsFormOpen={setIsFormOpen} />}
 
 
       <div id='content' style={{ display: "flex", width: "100%", height: "80%", justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: "80%", height: "80%" }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-            <div id='headerContainer' style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }} >DEVICE NAME</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }}>DEVICE TYPE</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }}>OWNER NAME</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '16%' }}>BATTERY STATUS</div>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '33.3%' }}>ACTION</div>
+            <div id='headerContainer' style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '20%', fontFamily: 'Roboto-Medium' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50%' }}>
+                <div style={{ display: 'flex', width: '5%', height: '100%' }}>
+                  <input type="checkbox" />
+                </div>
+                <div>
+                  {valueOfDelete.isButtonClicked &&
+                    <DeleteDevice
+                      valueOfDelete={valueOfDelete}
+                      setValueOfDelete={setValueOfDelete}
+                      setDataFromServer={setDataFromServer}
+                    />
+                  }
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50%' }}>
+                <div style={{ display: 'flex', width: '5%', height: '100%' }}>
+
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '19%' }} >DEVICE NAME</div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '19%' }}>DEVICE TYPE</div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '19%' }}>OWNER NAME</div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '19%' }}>BATTERY STATUS</div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '19%' }}>ACTION</div>
+              </div>
             </div>
             <div id='dataContainer' style={{ display: 'flex', width: '100%', height: '100%', overflow: 'hidden scroll' }}>
               <DisplayDevice
@@ -98,17 +123,21 @@ function App() {
         </div>
       </div>
 
-      {valueOfUpdate.isButtonClicked && <UpdateDevice
-        valueOfUpdate={valueOfUpdate}
-        setValueOfUpdate={setValueOfUpdate}
-        setDataFromServer={setDataFromServer}
-      />}
+      {
+        valueOfUpdate.isButtonClicked && <UpdateDevice
+          valueOfUpdate={valueOfUpdate}
+          setValueOfUpdate={setValueOfUpdate}
+          setDataFromServer={setDataFromServer}
+        />
+      }
 
-      {valueOfDelete.isButtonClicked && <DeleteDevice
-        valueOfDelete={valueOfDelete}
-        setValueOfDelete={setValueOfDelete}
-        setDataFromServer={setDataFromServer}
-      />}
+      {/* {
+        valueOfDelete.isButtonClicked && <DeleteDevice
+          valueOfDelete={valueOfDelete}
+          setValueOfDelete={setValueOfDelete}
+          setDataFromServer={setDataFromServer}
+        />
+      } */}
     </div >
   );
 }

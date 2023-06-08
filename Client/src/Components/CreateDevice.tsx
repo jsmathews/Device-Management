@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent, MouseEvent } from "react";
 import axios from "axios";
 import './CSS/CreateDevice.css'
+import CloseButton from 'react-bootstrap/CloseButton';
 
 type CreateDeviceProp = {
     setDataFromServer: React.Dispatch<React.SetStateAction<
@@ -11,10 +12,11 @@ type CreateDeviceProp = {
             ownerName: string;
             batteryStatus: string;
         }[]
-    >>
+    >>,
+    setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
+function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
     const [deviceProp, setDeviceProp] = useState({
         deviceName: '',
         deviceType: '',
@@ -45,6 +47,10 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
         });
     };
 
+    const handleActionOnClose = () => {
+        setIsFormOpen(false)
+    }
+
     const handleMouseDown = (event: MouseEvent) => {
         event.stopPropagation();
     };
@@ -52,6 +58,10 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
     return (
         <div id="createFormContainer" onClick={handleMouseDown}>
             <form onSubmit={handleSubmit} >
+
+                <div style={{ display: 'flex', justifyContent: 'end' }}>
+                    <CloseButton id="closeButton" variant="white" onClick={handleActionOnClose} />
+                </div>
 
                 <div id="labelAndInputFieldContainer">
                     <div id="labelContainer">
@@ -63,6 +73,8 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                             name="deviceName"
                             value={deviceProp.deviceName}
                             onChange={handleChange}
+                            maxLength={50}
+                            required
                         />
                     </div>
                 </div>
@@ -72,7 +84,7 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                         <label id="label">DEVICE TYPE</label>
                     </div>
                     <div id="inputFieldContainer" >
-                        <select id="selectField" name="deviceType" onChange={handleChange} >
+                        <select id="selectField" name="deviceType" onChange={handleChange} required>
                             <option value="">select an option</option>
                             <option value="Smartphone">Smartphone</option>
                             <option value="Tablet">Tablet</option>
@@ -91,6 +103,8 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                             name="ownerName"
                             value={deviceProp.ownerName}
                             onChange={handleChange}
+                            maxLength={50}
+                            required
                         />
                     </div>
                 </div>
@@ -101,10 +115,12 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                     </div>
                     <div id="inputFieldContainer" >
                         <input id="inputField"
-                            type="text"
+                            type="number"
                             name="batteryStatus"
                             value={deviceProp.batteryStatus}
                             onChange={handleChange}
+                            max={100}
+                            required
                         />
                     </div>
                 </div>
@@ -114,8 +130,8 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                         <button id="submitButton" >CREATE</button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 }
 

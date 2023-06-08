@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, MouseEvent, FormEvent, useEffect } from 'react'
 import axios from "axios";
 import './CSS/CreateDevice.css'
+import CloseButton from 'react-bootstrap/CloseButton'
 
 type UpdateDeviceProps = {
     valueOfUpdate: {
@@ -46,6 +47,10 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
         setDeviceProp({ ...deviceProp, [name]: value });
     };
 
+    const handleActionOnClose = () => {
+        setValueOfUpdate((oldData) => ({ ...oldData, isButtonClicked: false }))
+    }
+
     const handleMouseDown = (event: MouseEvent) => {
         event.stopPropagation();
     };
@@ -75,6 +80,10 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
         <div id="createFormContainer" onClick={handleMouseDown}
         >
             <form onSubmit={handleSubmit} >
+
+                <div style={{ display: 'flex', justifyContent: 'end' }}>
+                    <CloseButton id="closeButton" variant="white" onClick={handleActionOnClose} />
+                </div>
 
                 <div id="labelAndInputFieldContainer">
                     <div id="labelContainer">

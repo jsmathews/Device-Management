@@ -1,6 +1,9 @@
 
 import React, { MouseEvent } from "react";
 import axios from "axios";
+import Button from 'react-bootstrap/Button';
+import Trash from 'bootstrap-icons/icons/trash.svg';
+// import { Trash } from 'bootstrap-icons/icons';
 
 interface DeleteDeviceProps {
     valueOfDelete: {
@@ -38,7 +41,7 @@ export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServe
                 // setStatus("error");
             }
         };
-
+        console.log(valueOfDelete.idToDelete);
         axios.post('http://localhost:5000/deleteDevice', valueOfDelete).then((res) => {
             fetchData();
             setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: false }))
@@ -50,21 +53,27 @@ export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServe
     }
 
     return (
-        <div style={{
-            display: 'flex', flexDirection: 'column', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', width: '40vh', height: '150px',
-            backgroundColor: 'rgb(26,26,26)', borderRadius: '10px', padding: '10px', border: '1px solid #b6b6b6', justifyContent: 'space-evenly'
-        }}>
-            {/* <div style={{ width: '100%', height: '10%' }}>
-                DELETE
-            </div> */}
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '60%' }}>
-                ARE YOU SURE YOU WANT TO DELETE
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '100%', height: '30%' }}>
-                <button onClick={handeClickOnNo}>CLOSE</button>
-                <button onClick={handeClickOnYes}>DELETE</button>
-            </div>
-        </div>
+        // <Button variant="secondary" onClick={handeClickOnYes}>
+        //     DELETE
+        // </Button>
+        // // <i className="bi bi-trash"></i>
+        // <i className="bi-alarm-clock"></i>
+        <i className="bi bi-trash" onClick={handeClickOnYes} ></i>
+        // <div style={{
+        //     display: 'flex', flexDirection: 'column', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', width: '40vh', height: '150px',
+        //     backgroundColor: 'rgb(26,26,26)', borderRadius: '10px', padding: '10px', border: '1px solid #b6b6b6', justifyContent: 'space-evenly'
+        // }}>
+        //     {/* <div style={{ width: '100%', height: '10%' }}>
+        //         DELETE
+        //     </div> */}
+        //     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '60%' }}>
+        //         ARE YOU SURE YOU WANT TO DELETE
+        //     </div>
+        //     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '100%', height: '30%' }}>
+        //         <button onClick={handeClickOnNo}>CLOSE</button>
+        //         <button onClick={handeClickOnYes}>DELETE</button>
+        //     </div>
+        // </div>
     )
 }
 
