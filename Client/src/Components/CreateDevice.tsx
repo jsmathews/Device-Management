@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent, FormEvent, MouseEvent } from "react";
 import axios from "axios";
 import './CSS/CreateDevice.css'
 import CloseButton from 'react-bootstrap/CloseButton';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
 type CreateDeviceProp = {
     setDataFromServer: React.Dispatch<React.SetStateAction<
@@ -17,6 +19,7 @@ type CreateDeviceProp = {
 }
 
 function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
+    const [loadingStatus, setLoadingStatus] = useState<"loading" | "success" | "error">("loading");
     const [deviceProp, setDeviceProp] = useState({
         deviceName: '',
         deviceType: '',
@@ -33,20 +36,21 @@ function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
         event.preventDefault();
         const fetchData = async () => {
             try {
-                // setStatus("loading");
                 const response = await axios.get('http://localhost:5000/readAll');
                 // const response = await axios.get('http://18.184.49.238:5000/readAll');
                 setDataFromServer(response.data);
-                // setStatus("success");
             } catch (error) {
                 console.log(error);
-                // setStatus("error");
             }
         };
+        setLoadingStatus("loading")
         axios.post('http://localhost:5000/createDevice', deviceProp).then((res) => {
             // axios.post('http://18.184.49.238:5000/createDevice', deviceProp).then((res) => {
             fetchData();
-            setIsFormOpen(false)
+            setIsFormOpen(false);
+            setLoadingStatus("success")
+        }).catch(error => {
+            setLoadingStatus("error")
         });
     };
 
@@ -57,6 +61,16 @@ function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
     const handleMouseDown = (event: MouseEvent) => {
         event.stopPropagation();
     };
+
+    // if (loadingStatus == 'loading') {
+    //     console.log('loading')
+    // }
+    // else if (loadingStatus == 'success') {
+    //     console.log('success')
+    // }
+    // else if (loadingStatus == 'error') {
+    //     console.log('error')
+    // }
 
     return (
         <div id="createFormContainer" onClick={handleMouseDown}>
@@ -88,10 +102,10 @@ function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
                     </div>
                     <div id="inputFieldContainer" >
                         <select id="selectField" name="deviceType" onChange={handleChange} required>
-                            <option value="">select an option</option>
-                            <option value="Smartphone">Smartphone</option>
-                            <option value="Tablet">Tablet</option>
-                            <option value="Camera">Camera</option>
+                            <option value="" style={{ height: '30px' }}>select an option</option>
+                            <option value="Smartphone" style={{ height: '30px' }}>Smartphone</option>
+                            <option value="Tablet" style={{ height: '30px' }}>Tablet</option>
+                            <option value="Camera" style={{ height: '30px' }}>Camera</option>
                         </select>
                     </div>
                 </div>
@@ -131,6 +145,17 @@ function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
                 <div id="labelAndInputFieldContainer">
                     <div id="submitButtonContainer" >
                         <button id="submitButton" >CREATE</button>
+
+                        {/* <Button variant="primary" disabled>
+                            <Spinner
+                                as="span"
+                                animation="grow"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            Loading...
+                        </Button> */}
                     </div>
                 </div>
             </form >

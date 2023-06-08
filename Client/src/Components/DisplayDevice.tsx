@@ -124,7 +124,7 @@ export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDele
                 <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '20%' }}>
                     {item.ownerName || 'N/A'}
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '20%' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
                     {item.batteryStatus || 'N/A'}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
