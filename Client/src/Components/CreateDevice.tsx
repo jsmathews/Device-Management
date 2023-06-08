@@ -35,6 +35,7 @@ function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
             try {
                 // setStatus("loading");
                 const response = await axios.get('http://localhost:5000/readAll');
+                // const response = await axios.get('http://18.184.49.238:5000/readAll');
                 setDataFromServer(response.data);
                 // setStatus("success");
             } catch (error) {
@@ -43,6 +44,7 @@ function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
             }
         };
         axios.post('http://localhost:5000/createDevice', deviceProp).then((res) => {
+            // axios.post('http://18.184.49.238:5000/createDevice', deviceProp).then((res) => {
             fetchData();
         });
     };

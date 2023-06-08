@@ -39,6 +39,7 @@ function App() {
       try {
         // setStatus("loading");
         const response = await axios.get('http://localhost:5000/readAll');
+        // const response = await axios.get('http://18.184.49.238:5000/readAll');
         setDataFromServer(response.data);
         // setStatus("success");
       } catch (error) {
@@ -90,7 +91,7 @@ function App() {
                 <div style={{ display: 'flex', width: '5%', height: '100%' }}>
                   <input type="checkbox" />
                 </div>
-                <div>
+                <div style={{ width: '30px' }}>
                   {valueOfDelete.isButtonClicked &&
                     <DeleteDevice
                       valueOfDelete={valueOfDelete}

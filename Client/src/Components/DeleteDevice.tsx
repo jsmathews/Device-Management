@@ -2,8 +2,6 @@
 import React, { MouseEvent } from "react";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
-import Trash from 'bootstrap-icons/icons/trash.svg';
-// import { Trash } from 'bootstrap-icons/icons';
 
 interface DeleteDeviceProps {
     valueOfDelete: {
@@ -33,6 +31,7 @@ export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServe
             try {
                 // setStatus("loading");
                 const response = await axios.get('http://localhost:5000/readAll');
+                // const response = await axios.get('http://18.184.49.238:5000/readAll');
                 setDataFromServer(response.data);
                 // setStatus("success");
                 // console.log('FETCH CALLED')
@@ -43,6 +42,7 @@ export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServe
         };
         console.log(valueOfDelete.idToDelete);
         axios.post('http://localhost:5000/deleteDevice', valueOfDelete).then((res) => {
+            // axios.post('http://18.184.49.238:5000/deleteDevice', valueOfDelete).then((res) => {
             fetchData();
             setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: false }))
         })
@@ -58,7 +58,7 @@ export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServe
         // </Button>
         // // <i className="bi bi-trash"></i>
         // <i className="bi-alarm-clock"></i>
-        <i className="bi bi-trash" onClick={handeClickOnYes} ></i>
+        <i className="bi bi-trash fa-2x" style={{ fontSize: '30px' }} onClick={handeClickOnYes} ></i>
         // <div style={{
         //     display: 'flex', flexDirection: 'column', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', width: '40vh', height: '150px',
         //     backgroundColor: 'rgb(26,26,26)', borderRadius: '10px', padding: '10px', border: '1px solid #b6b6b6', justifyContent: 'space-evenly'

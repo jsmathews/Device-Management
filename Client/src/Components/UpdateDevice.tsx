@@ -61,6 +61,7 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
             try {
                 // setStatus("loading");
                 const response = await axios.get('http://localhost:5000/readAll');
+                // const response = await axios.get('http://18.184.49.238:5000/readAll');
                 setDataFromServer(response.data);
                 // setStatus("success");
             } catch (error) {
@@ -69,6 +70,7 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
             }
         };
         axios.post('http://localhost:5000/updateDevice', deviceProp).then((res) => {
+            // axios.post('http://18.184.49.238:5000/updateDevice', deviceProp).then((res) => {
             fetchData()
             setValueOfUpdate((oldData) => ({ ...oldData, isButtonClicked: false }))
             console.log('res:', res.data)
