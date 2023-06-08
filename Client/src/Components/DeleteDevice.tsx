@@ -58,7 +58,7 @@ export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServe
         // </Button>
         // // <i className="bi bi-trash"></i>
         // <i className="bi-alarm-clock"></i>
-        <i className="bi bi-trash fa-2x" style={{ fontSize: '30px' }} onClick={handeClickOnYes} ></i>
+        <i className="bi bi-trash fa-2x" style={{ fontSize: '1.5rem' }} onClick={handeClickOnYes} ></i>
         // <div style={{
         //     display: 'flex', flexDirection: 'column', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', width: '40vh', height: '150px',
         //     backgroundColor: 'rgb(26,26,26)', borderRadius: '10px', padding: '10px', border: '1px solid #b6b6b6', justifyContent: 'space-evenly'

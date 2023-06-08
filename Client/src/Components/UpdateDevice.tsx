@@ -97,6 +97,7 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
                             name="deviceName"
                             value={deviceProp.deviceName}
                             onChange={handleChange}
+                            required
                         />
                     </div>
                 </div>
@@ -106,7 +107,7 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
                         <label id="label">DEVICE TYPE</label>
                     </div>
                     <div id="inputFieldContainer" >
-                        <select id="selectField" name="deviceType" onChange={handleChange} value={deviceProp.deviceType}>
+                        <select id="selectField" name="deviceType" onChange={handleChange} value={deviceProp.deviceType} required>
                             <option value="">select an option</option>
                             <option value="Smartphone">Smartphone</option>
                             <option value="Tablet">Tablet</option>
@@ -125,6 +126,7 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
                             name="ownerName"
                             value={deviceProp.ownerName}
                             onChange={handleChange}
+                            required
                         />
                     </div>
                 </div>
@@ -139,6 +141,7 @@ export function UpdateDevice({ valueOfUpdate, setValueOfUpdate, setDataFromServe
                             name="batteryStatus"
                             value={deviceProp.batteryStatus}
                             onChange={handleChange}
+                            required
                         />
                     </div>
                 </div>
