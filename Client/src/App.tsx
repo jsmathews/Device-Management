@@ -42,6 +42,7 @@ function App() {
     const fetchData = async () => {
       try {
         // setStatus("loading");
+        // const response = await axios.get('http://localhost:5000/readAll');
         const response = await axios.get('http://localhost:5000/readAll');
         // const response = await axios.get('http://18.184.49.238:5000/readAll');
         setDataFromServer(response.data);

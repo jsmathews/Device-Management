@@ -70,34 +70,34 @@ export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDele
         setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: true, idToDelete: selectedItems }));
     }
 
-    if (sortOrder.ascending) {
-        dataFromServer.sort((a, b) => {
-            const nameA = a.deviceName.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.deviceName.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            }
-            // names must be equal
-            return 0;
-        })
-    } else {
-        dataFromServer.sort((a, b) => {
-            const nameA = a.deviceName.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.deviceName.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-                return 1;
-            }
-            if (nameA > nameB) {
-                return -1;
-            }
+    // if (sortOrder.ascending) {
+    //     dataFromServer.sort((a, b) => {
+    //         const nameA = a.deviceName.toUpperCase(); // ignore upper and lowercase
+    //         const nameB = b.deviceName.toUpperCase(); // ignore upper and lowercase
+    //         if (nameA < nameB) {
+    //             return -1;
+    //         }
+    //         if (nameA > nameB) {
+    //             return 1;
+    //         }
+    //         // names must be equal
+    //         return 0;
+    //     })
+    // } else {
+    //     dataFromServer.sort((a, b) => {
+    //         const nameA = a.deviceName.toUpperCase(); // ignore upper and lowercase
+    //         const nameB = b.deviceName.toUpperCase(); // ignore upper and lowercase
+    //         if (nameA < nameB) {
+    //             return 1;
+    //         }
+    //         if (nameA > nameB) {
+    //             return -1;
+    //         }
 
-            // names must be equal
-            return 0;
-        })
-    }
+    //         // names must be equal
+    //         return 0;
+    //     })
+    // }
 
 
 
