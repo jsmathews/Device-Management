@@ -1,5 +1,5 @@
 # Use the official Node.js LTS image
-FROM node:lts
+FROM node:16.17.0-alpine
 
 # Set the working directory inside the container
 WORKDIR /app/Client
