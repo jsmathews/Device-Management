@@ -14,7 +14,9 @@
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
     "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
     "express": "^4.18.2",
+    "nodemon": "^2.0.22",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
@@ -23,7 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "host": "node ./server.js",
+    "host": "nodemon ./server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
