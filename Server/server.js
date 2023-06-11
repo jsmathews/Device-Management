@@ -205,10 +205,11 @@ app.post('/updateDevice', (req, res) => {
 });
 
 app.post('/deleteDevice', (req, res) => {
-    const { idToDelete } = req.body
-    var q = `DELETE FROM mydb.deviceproperty WHERE id IN (${idToDelete.join()})`
+    const { id } = req.body;
+    // var q = `DELETE FROM mydb.deviceproperty WHERE id IN (${idToDelete.join()})`
+    var q = `DELETE FROM mydb.deviceproperty WHERE id IN (${id})`
     // const values = idToDelete
-    console.log(idToDelete)
+    // console.log(idToDelete)
 
     db.query(q, function (err, result) {
         if (err) return res.json(err);

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, MouseEvent } from "react";
 import Button from 'react-bootstrap/Button';
+import { DeleteDevice } from "./DeleteDevice";
+import { Delete } from "./Delete";
 
 type Device = {
     id: string;
@@ -29,13 +31,22 @@ interface DisplayDeviceProps {
         isButtonClicked: boolean,
         idToDelete: string[]
     }>>,
+    setDataFromServer: React.Dispatch<React.SetStateAction<
+        {
+            id: string;
+            deviceName: string;
+            deviceType: string;
+            ownerName: string;
+            batteryStatus: string;
+        }[]
+    >>,
     sorting: {
         tableToSort: 'deviceName' | 'deviceType' | 'ownerName' | 'batteryStatus',
         sortOrder: 'ascending' | 'descending'
     }
 }
 
-export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDelete, sorting }: DisplayDeviceProps) {
+export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDelete, setDataFromServer, sorting }: DisplayDeviceProps) {
 
     const handleClickOnUpdate = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
         event.stopPropagation();
@@ -81,7 +92,7 @@ export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDele
     let content;
     content = dataFromServer.map((item) => (
         <div key={item.id} style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '5%', height: '100%' }}>
+            <div style={{ display: 'none', justifyContent: 'center', alignItems: 'center', width: '5%', height: '100%' }}>
                 <input style={{ width: '1.5rem', height: '1.5rem' }} name="checkbox" type="checkbox" id={item.id} onClick={() => { findListOfSelectedItems(item) }} />
             </div>
             <div style={{ width: '3%', height: '100%' }}>
@@ -107,10 +118,20 @@ export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDele
                     <div style={{ width: '50%', height: '100%' }}>
                         <i className="bi bi-pencil-square" style={{ fontSize: '1.3rem', color: 'green' }} onClick={(event) => handleClickOnUpdate(event, item)}></i>
                     </div>
-                    {/* <div style={{ width: '50%', height: '100%' }}> */}
-                    {/* <i className="bi bi-pencil-square" style={{ fontSize: '1.3rem', color: 'green' }} onClick={(event) => handleClickOnUpdate(event, item)}></i> */}
-                    {/* <i className="bi bi-trash" style={{ fontSize: '1.3rem', color: 'red' }}></i> */}
-                    {/* </div> */}
+                    <div style={{ width: '50%', height: '100%' }}>
+                        {/* <i className="bi bi-pencil-square" style={{ fontSize: '1.3rem', color: 'green' }} onClick={(event) => handleClickOnUpdate(event, item)}></i> */}
+                        {/* <i className="bi bi-trash" style={{ fontSize: '1.3rem', color: 'red' }}></i> */}
+                        {/* <DeleteDevice
+                    valueOfDelete={valueOfDelete}
+                    setValueOfDelete={setValueOfDelete}
+                    setDataFromServer={setDataFromServer}
+                  /> */}
+
+                        <Delete
+                            item={item}
+                            setDataFromServer={setDataFromServer}
+                        />
+                    </div>
 
                 </div>
             </div>

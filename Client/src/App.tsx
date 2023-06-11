@@ -149,13 +149,14 @@ function App() {
       <div id='content' style={{ display: "flex", width: "100%", height: "80%", justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: "80%", height: "80%" }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+
             <div id='headerContainer' style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '10%', fontFamily: 'Roboto-Medium' }}>
 
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '5%', height: '100%' }}>
+              <div style={{ display: 'none', justifyContent: 'center', alignItems: 'center', width: '5%', height: '100%' }}>
                 <input id='selectAllCheckbox' type="checkbox" style={{ width: '1.5rem', height: '1.5rem' }} onChange={handleClickOnSelectAllCheckbox} />
               </div>
 
-              <div id='deleteButton' style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '3%', height: '100%' }}>
+              <div id='deleteButton' style={{ display: 'none', justifyContent: 'flex-start', alignItems: 'center', width: '3%', height: '100%' }}>
                 {valueOfDelete.isButtonClicked &&
                   <DeleteDevice
                     valueOfDelete={valueOfDelete}
@@ -217,6 +218,7 @@ function App() {
                 dataFromServer={dataFromServer}
                 setValueOfUpdate={setValueOfUpdate}
                 setValueOfDelete={setValueOfDelete}
+                setDataFromServer={setDataFromServer}
                 sorting={sorting}
               />
             </div>
