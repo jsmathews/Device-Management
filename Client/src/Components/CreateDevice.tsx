@@ -1,9 +1,9 @@
-import React, { useState, ChangeEvent, FormEvent, MouseEvent } from "react";
-import axios from "axios";
+import React, { useState, ChangeEvent, FormEvent, MouseEvent, KeyboardEvent } from "react";
+import axios from "axios"
 import './CSS/CreateDevice.css'
-import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 type CreateDeviceProp = {
     setDataFromServer: React.Dispatch<React.SetStateAction<
@@ -14,152 +14,189 @@ type CreateDeviceProp = {
             ownerName: string;
             batteryStatus: string;
         }[]
-    >>,
-    setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>
+    >>
 }
 
-function CreateDevice({ setDataFromServer, setIsFormOpen }: CreateDeviceProp) {
-    const [loadingStatus, setLoadingStatus] = useState<"loading" | "success" | "error">("loading");
+type errorProp = {
+    deviceName: 'Please enter device name' | null,
+    deviceType: 'Please enter device type' | null,
+    ownerName: 'Please enter owner name' | null,
+}
+
+function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
+    const [show, setShow] = useState(false);
     const [deviceProp, setDeviceProp] = useState({
         deviceName: '',
         deviceType: '',
         ownerName: '',
-        batteryStatus: '',
+        batteryStatus: '50',
     });
+
+    const [error, setError] = useState<errorProp>({
+        deviceName: null,
+        deviceType: null,
+        ownerName: null
+    })
+
+    const handleClose = () => {
+        setShow(false)
+    };
+
+    const handleShow = () => {
+        setError({
+            deviceName: null,
+            deviceType: null,
+            ownerName: null
+        });
+
+        setDeviceProp({
+            deviceName: '',
+            deviceType: '',
+            ownerName: '',
+            batteryStatus: '50'
+        })
+        setShow(true)
+    };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
+
         setDeviceProp({ ...deviceProp, [name]: value });
+        setError({ ...error, [name]: null });
     };
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/readAll');
-                // const response = await axios.get('http://18.184.49.238:5000/readAll');
-                setDataFromServer(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        setLoadingStatus("loading")
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/readAll');
+            // const response = await axios.get('http://18.184.49.238:5000/readAll');
+            setDataFromServer(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const validateForm = () => {
+        const { deviceName, deviceType, ownerName } = deviceProp;
+        if (!deviceName) {
+            setError((prevData) => ({ ...prevData, deviceName: "Please enter device name" }));
+        }
+        if (!deviceType) {
+            setError((prevData) => ({ ...prevData, deviceType: "Please enter device type" }));
+        }
+        if (!ownerName) {
+            setError((prevData) => ({ ...prevData, ownerName: "Please enter owner name" }));
+        }
+    }
+
+    const handleSubmit = () => {
+        // event.preventDefault();
+        validateForm();
+
+        if (!deviceProp.deviceName || !deviceProp.deviceType || !deviceProp.ownerName) {
+            return
+        }
+
         axios.post('http://localhost:5000/createDevice', deviceProp).then((res) => {
             // axios.post('http://18.184.49.238:5000/createDevice', deviceProp).then((res) => {
             fetchData();
-            setIsFormOpen(false);
-            setLoadingStatus("success")
+            handleClose()
+
         }).catch(error => {
-            setLoadingStatus("error")
+            console.log(error);
         });
     };
 
-    const handleActionOnClose = () => {
-        setIsFormOpen(false)
+    const handleKeyPress = (event: KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            handleSubmit();
+        }
     }
 
-    const handleMouseDown = (event: MouseEvent) => {
-        event.stopPropagation();
-    };
-
-    // if (loadingStatus == 'loading') {
-    //     console.log('loading')
-    // }
-    // else if (loadingStatus == 'success') {
-    //     console.log('success')
-    // }
-    // else if (loadingStatus == 'error') {
-    //     console.log('error')
-    // }
-
     return (
-        <div id="createFormContainer" onClick={handleMouseDown}>
-            <form onSubmit={handleSubmit} >
+        <>
+            <Button variant="primary" onClick={handleShow}>
+                ADD NEW DEVICE
+            </Button>
 
-                <div style={{ display: 'flex', justifyContent: 'end' }}>
-                    <CloseButton id="closeButton" variant="white" onClick={handleActionOnClose} />
-                </div>
-
-                <div id="labelAndInputFieldContainer">
-                    <div id="labelContainer">
-                        <label id="label">DEVICE NAME</label>
-                    </div>
-                    <div id="inputFieldContainer" >
-                        <input id="inputField"
-                            type="text"
-                            name="deviceName"
-                            value={deviceProp.deviceName}
-                            onChange={handleChange}
-                            maxLength={50}
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div id="labelAndInputFieldContainer">
-                    <div id="labelContainer">
-                        <label id="label">DEVICE TYPE</label>
-                    </div>
-                    <div id="inputFieldContainer" >
-                        <select id="selectField" name="deviceType" onChange={handleChange} required>
-                            <option value="" style={{ height: '30px' }}>select an option</option>
-                            <option value="Smartphone" style={{ height: '30px' }}>Smartphone</option>
-                            <option value="Tablet" style={{ height: '30px' }}>Tablet</option>
-                            <option value="Camera" style={{ height: '30px' }}>Camera</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="labelAndInputFieldContainer">
-                    <div id="labelContainer">
-                        <label id="label">OWNER NAME</label>
-                    </div>
-                    <div id="inputFieldContainer" >
-                        <input id="inputField"
-                            type="text"
-                            name="ownerName"
-                            value={deviceProp.ownerName}
-                            onChange={handleChange}
-                            maxLength={50}
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div id="labelAndInputFieldContainer">
-                    <div id="labelContainer">
-                        <label id="label">BATTERY STATUS</label>
-                    </div>
-                    <div id="inputFieldContainer" >
-                        <input id="inputField"
-                            type="number"
-                            name="batteryStatus"
-                            value={deviceProp.batteryStatus}
-                            onChange={handleChange}
-                            max={100}
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div id="labelAndInputFieldContainer">
-                    <div id="submitButtonContainer" >
-                        <button id="submitButton" >CREATE</button>
-
-                        {/* <Button variant="primary" disabled>
-                            <Spinner
-                                as="span"
-                                animation="grow"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create New Device</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form >
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Device Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="deviceName"
+                                onChange={handleChange as (event: ChangeEvent<HTMLInputElement>) => void}
+                                onKeyDown={handleKeyPress}
+                                isInvalid={!!error.deviceName}
                             />
-                            Loading...
-                        </Button> */}
-                    </div>
-                </div>
-            </form >
-        </div >
+                            <Form.Control.Feedback type="invalid">{error.deviceName}</Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Device Type</Form.Label>
+                            <Form.Select
+                                aria-label="Default select example"
+                                name="deviceType"
+                                onChange={handleChange as (event: ChangeEvent<HTMLSelectElement>) => void}
+                                onKeyDown={handleKeyPress}
+                                isInvalid={!!error.deviceType}
+                            >
+                                <option>select an option</option>
+                                <option value="Smartphone">Smartphone</option>
+                                <option value="Tablet">Tablet</option>
+                                <option value="Camera">Camera</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">{error.deviceType}</Form.Control.Feedback>
+                        </Form.Group>
+
+
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Owner Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="ownerName"
+                                onChange={handleChange as (event: ChangeEvent<HTMLInputElement>) => void}
+                                onKeyDown={handleKeyPress}
+                                isInvalid={!!error.ownerName}
+                            />
+                            <Form.Control.Feedback type="invalid">{error.ownerName}</Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Battery Status</Form.Label>
+                            {/* <Form.Control type="number" max={100} /> */}
+                            <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', width: '85%' }}>
+                                    <Form.Range
+                                        min={0} max={100} step={1}
+                                        value={deviceProp.batteryStatus}
+                                        name="batteryStatus"
+                                        onChange={handleChange as (event: ChangeEvent<HTMLInputElement>) => void}
+                                        onKeyDown={handleKeyPress}
+                                        required />
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center', width: '15%' }}>
+                                    <Form.Text id="batteryValue">{deviceProp.batteryStatus} </Form.Text >
+                                </div>
+                            </div>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                        Create
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 }
 

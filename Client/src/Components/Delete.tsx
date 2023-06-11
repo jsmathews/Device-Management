@@ -27,6 +27,17 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/readAll');
+            // const response = await axios.get('http://18.184.49.238:5000/readAll');
+            setDataFromServer(response.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handeClickOnYes = async (item: {
         id: string;
         deviceName: string;
@@ -34,45 +45,31 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
         ownerName: string;
         batteryStatus: string
     }) => {
-
-        console.log(item)
-
-        const fetchData = async () => {
-            try {
-                // setStatus("loading");
-                const response = await axios.get('http://localhost:5000/readAll');
-                // const response = await axios.get('http://18.184.49.238:5000/readAll');
-                setDataFromServer(response.data);
-
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         axios.post('http://localhost:5000/deleteDevice', item).then((res) => {
             // axios.post('http://18.184.49.238:5000/deleteDevice', valueOfDelete).then((res) => {
             fetchData();
-            // setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: false }))
         })
     }
 
 
     return (
         <>
-            <i className="bi bi-trash" style={{ fontSize: '1.3rem', color: 'red' }} onClick={handleShow}></i>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '50%', height: '100%' }}>
+                <i className="bi bi-trash" style={{ fontSize: '1.3rem', color: 'red' }} onClick={handleShow}></i>
+            </div>
 
             <Modal style={{ color: 'black' }} show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>DELETE DEVICE</Modal.Title>
+                    <Modal.Title>Delete device</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>PRESS CONFIRM TO DELETE</Modal.Body>
+                <Modal.Body>Plese click <b>Delete</b> button to confirm action</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
                     {/* <Button variant="primary" onClick={handeClickOnYes}> */}
                     <Button variant="primary" onClick={() => { handeClickOnYes(item) }}>
-                        CONFIRM
+                        Delete
                     </Button>
                 </Modal.Footer>
             </Modal>
