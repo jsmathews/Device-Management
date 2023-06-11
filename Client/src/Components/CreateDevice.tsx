@@ -181,7 +181,7 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                                         required />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'center', width: '15%' }}>
-                                    <Form.Text id="batteryValue">{deviceProp.batteryStatus} </Form.Text >
+                                    <Form.Text><b>{deviceProp.batteryStatus}</b></Form.Text >
                                 </div>
                             </div>
                         </Form.Group>
