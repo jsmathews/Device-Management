@@ -75,7 +75,7 @@ function App() {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '10%', justifyContent: 'center' }}>
-        {/* <CreateDevice setDataFromServer={setDataFromServer} /> */}
+        <CreateDevice setDataFromServer={setDataFromServer} />
       </div>
 
       <div id='content' style={{ display: "flex", flexDirection: 'column', width: "100%", height: "80%", justifyContent: 'center', alignItems: 'center' }}>
