@@ -1,0 +1,34 @@
+.sortable-table-header {
+    cursor: pointer;
+}
+
+.sortable-table-header .sortIcon i {
+    font-size: 1.2rem;
+}
+
+.sortable-table-header:not(.selected) .sortIcon i {
+    display: none;
+}
+
+.sortable-table-header:not(.selected):hover .sortIcon i {
+    display: block;
+}
+
+/* .sortable-table-header .bi {
+    display: none;
+}
+
+.sortable-table-header:hover .bi {
+    display: block;
+    font-size: 1.5rem;
+} */
+
+/* .sortable-table-header i::after { */
+/* content: "\F575"; */
+/* content: url('../icons/sort-down.svg'); */
+/* font-family: "Bootstrap Icons"; */
+/* color: white; */
+/* font-size: 1.5rem; */
+/* content: "<i className=" bi bi-sort-down" style={{ fontSize: '1.5rem' }} ></i>"; */
+/* position: absolute; */
+/* } */

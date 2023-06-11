@@ -29,30 +29,18 @@ interface DisplayDeviceProps {
         isButtonClicked: boolean,
         idToDelete: string[]
     }>>,
-    sortOrder: { ascending: boolean }
+    sorting: {
+        tableToSort: 'deviceName' | 'deviceType' | 'ownerName' | 'batteryStatus',
+        sortOrder: 'ascending' | 'descending'
+    }
 }
 
-export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDelete, sortOrder }: DisplayDeviceProps) {
-
-    const [status, setStatus] = useState<setStatusProp>('loading');
-    const [listOfSelectedItems, setListOfSelectedItem] = useState([]);
-
-    // if (dataFromServer.length == 0) {
-    //     setStatus('loading')
-    // }
-    // else if (dataFromServer.length > 0) {
-    //     setStatus('success')
-    // }
+export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDelete, sorting }: DisplayDeviceProps) {
 
     const handleClickOnUpdate = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
         event.stopPropagation();
         setValueOfUpdate((oldData) => ({ ...oldData, isButtonClicked: true, data: item }))
     };
-
-    const handleClickOnDelete = (event: MouseEvent, item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
-        event.stopPropagation();
-        setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: true, idToDelete: [item.id] }))
-    }
 
     const findListOfSelectedItems = (item: { id: string, deviceName: string, deviceType: string, ownerName: string, batteryStatus: string }) => {
         var checkboxes = document.querySelectorAll('input[name="checkbox"]:checked');
@@ -66,46 +54,31 @@ export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDele
         for (var i = 0; i < checkboxes.length; i++) {
             selectedItems.push(checkboxes[i].id)
         }
-        console.log('selectedItems: ', selectedItems)
         setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: true, idToDelete: selectedItems }));
     }
 
-    // if (sortOrder.ascending) {
-    //     dataFromServer.sort((a, b) => {
-    //         const nameA = a.deviceName.toUpperCase(); // ignore upper and lowercase
-    //         const nameB = b.deviceName.toUpperCase(); // ignore upper and lowercase
-    //         if (nameA < nameB) {
-    //             return -1;
-    //         }
-    //         if (nameA > nameB) {
-    //             return 1;
-    //         }
-    //         // names must be equal
-    //         return 0;
-    //     })
-    // } else {
-    //     dataFromServer.sort((a, b) => {
-    //         const nameA = a.deviceName.toUpperCase(); // ignore upper and lowercase
-    //         const nameB = b.deviceName.toUpperCase(); // ignore upper and lowercase
-    //         if (nameA < nameB) {
-    //             return 1;
-    //         }
-    //         if (nameA > nameB) {
-    //             return -1;
-    //         }
+    function sort(dataFromServer: Device, tableToSort: 'deviceName' | 'deviceType' | 'ownerName' | 'batteryStatus', sortOrder: 'ascending' | 'descending') {
+        dataFromServer.sort((a, b) => {
+            const nameA = a[tableToSort].toUpperCase(); // ignore upper and lowercase
+            const nameB = b[tableToSort].toUpperCase(); // ignore upper and lowercase
 
-    //         // names must be equal
-    //         return 0;
-    //     })
-    // }
+            if (nameA < nameB) {
+                return sortOrder == 'ascending' ? -1 : 1;
+            }
+            if (nameA > nameB) {
+                return sortOrder == 'ascending' ? 1 : -1;
+            }
+
+            // names must be equal
+            return 0;
+        })
+    }
+
+    sort(dataFromServer, sorting.tableToSort, sorting.sortOrder);
 
 
 
     let content;
-    // if (status === 'loading') {
-    //     content = <div>Loading...</div>;
-    // }
-    // else if (status === 'success') {
     content = dataFromServer.map((item) => (
         <div key={item.id} style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '5%', height: '100%' }}>
@@ -128,18 +101,21 @@ export function DisplayDevice({ dataFromServer, setValueOfUpdate, setValueOfDele
                     {item.batteryStatus || 'N/A'}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    {/* <button onClick={(event) => handleClickOnUpdate(event, item)}>UPDATE</button> */}
-                    <Button variant="secondary" onClick={(event) => handleClickOnUpdate(event, item)}>
+                    {/* <Button variant="secondary" onClick={(event) => handleClickOnUpdate(event, item)}>
                         UPDATE
-                    </Button>
+                    </Button> */}
+                    <div style={{ width: '50%', height: '100%' }}>
+                        <i className="bi bi-pencil-square" style={{ fontSize: '1.3rem', color: 'green' }} onClick={(event) => handleClickOnUpdate(event, item)}></i>
+                    </div>
+                    {/* <div style={{ width: '50%', height: '100%' }}> */}
+                    {/* <i className="bi bi-pencil-square" style={{ fontSize: '1.3rem', color: 'green' }} onClick={(event) => handleClickOnUpdate(event, item)}></i> */}
+                    {/* <i className="bi bi-trash" style={{ fontSize: '1.3rem', color: 'red' }}></i> */}
+                    {/* </div> */}
+
                 </div>
             </div>
         </div>
     ));
-    // }
-    // else if (status === 'error') {
-    //     content = <div>ERROR</div>;
-    // }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>

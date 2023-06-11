@@ -4,9 +4,10 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.22",
     "wait-on": "^7.0.1"
   },
   "scripts": {
-    "start": "node server"
+    "start": "nodemon server"
   }
 }

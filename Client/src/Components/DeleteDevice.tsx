@@ -1,7 +1,8 @@
 
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useState } from "react";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 interface DeleteDeviceProps {
     valueOfDelete: {
@@ -26,7 +27,10 @@ interface DeleteDeviceProps {
 }
 
 export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServer }: DeleteDeviceProps) {
+    const [show, setShow] = useState<boolean>(false);
+
     const handeClickOnYes = async (event: MouseEvent) => {
+
         const fetchData = async () => {
             try {
                 // setStatus("loading");
@@ -48,17 +52,50 @@ export function DeleteDevice({ valueOfDelete, setValueOfDelete, setDataFromServe
         })
     }
 
-    const handeClickOnNo = (event: MouseEvent) => {
-        setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: false }))
-    }
+    // const handleClose = (event: MouseEvent) => {
+    //     // setValueOfDelete((oldData) => ({ ...oldData, isButtonClicked: false }))
+    //     setShow(false)
+    // }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
+
+        <>
+            {/* <Button variant="primary" onClick={handleShow}>
+                Launch demo modal
+            </Button> */}
+            <i className="bi bi-trash fa-2x" style={{ fontSize: '1.5rem' }} onClick={handleShow} ></i>
+
+            <Modal style={{ color: 'black' }} show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>DELETE DEVICE</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>PRESS CONFIRM TO DELETE</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handeClickOnYes}>
+                        CONFIRM
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+
+
+
+
+
         // <Button variant="secondary" onClick={handeClickOnYes}>
         //     DELETE
         // </Button>
         // // <i className="bi bi-trash"></i>
         // <i className="bi-alarm-clock"></i>
-        <i className="bi bi-trash fa-2x" style={{ fontSize: '1.5rem' }} onClick={handeClickOnYes} ></i>
+        // <i className="bi bi-trash fa-2x" style={{ fontSize: '1.5rem' }} onClick={handeClickOnYes} ></i>
+
+
         // <div style={{
         //     display: 'flex', flexDirection: 'column', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', width: '40vh', height: '150px',
         //     backgroundColor: 'rgb(26,26,26)', borderRadius: '10px', padding: '10px', border: '1px solid #b6b6b6', justifyContent: 'space-evenly'

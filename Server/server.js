@@ -162,7 +162,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/readAll', (req, res) => {
-    console.log('here')
     const q = "SELECT * FROM mydb.deviceproperty"
     db.query(q, (err, data) => {
         if (err) {
