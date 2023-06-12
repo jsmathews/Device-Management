@@ -1,9 +1,8 @@
-import React, { useState, ChangeEvent, MouseEvent, FormEvent, useEffect, KeyboardEvent } from 'react'
-import axios from "axios";
-import './CSS/CreateDevice.css'
+import React, { useState, ChangeEvent, KeyboardEvent } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { readAll, updateDevice } from '../Communication/Communication';
 
 type UpdateDeviceProp = {
     item: {
@@ -63,13 +62,13 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
         setDeviceProp({ ...deviceProp, [name]: value });
+        setError({ ...error, [name]: null });
     };
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/readAll');
-            // const response = await axios.get('http://18.184.49.238:5000/readAll');
-            setDataFromServer(response.data);
+            const response = await readAll();
+            setDataFromServer(response);
         } catch (error) {
             console.log(error);
         }
@@ -88,21 +87,20 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         validateForm();
-
         if (!deviceProp.deviceName || !deviceProp.deviceType || !deviceProp.ownerName) {
             return
         }
 
-        axios.post('http://localhost:5000/updateDevice', deviceProp).then((res) => {
-            // axios.post('http://18.184.49.238:5000/updateDevice', deviceProp).then((res) => {
+        try {
+            const response = await updateDevice(deviceProp);
             fetchData();
             handleClose()
 
-        }).catch(error => {
-            console.log(error);
-        });
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -147,7 +145,7 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
                                 value={deviceProp.deviceType}
                                 isInvalid={!!error.deviceType}
                             >
-                                <option>select an option</option>
+                                <option value="">select an option</option>
                                 <option value="Smartphone">Smartphone</option>
                                 <option value="Tablet">Tablet</option>
                                 <option value="Camera">Camera</option>
@@ -172,7 +170,6 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Battery Status</Form.Label>
-                            {/* <Form.Control type="number" max={100} /> */}
                             <div style={{ display: 'flex', width: '100%', height: '100%' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', width: '85%' }}>
                                     <Form.Range
@@ -184,7 +181,7 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
                                         required />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'center', width: '15%' }}>
-                                    <Form.Text><b>{deviceProp.batteryStatus}</b></Form.Text >
+                                    <Form.Text><b>{deviceProp.batteryStatus + '%'}</b></Form.Text >
                                 </div>
                             </div>
                         </Form.Group>

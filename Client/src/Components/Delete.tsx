@@ -1,7 +1,7 @@
-import React, { MouseEvent, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { readAll, deleteDevice } from '../Communication/Communication';
 
 type DeleteProp = {
     item: {
@@ -29,28 +29,24 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/readAll');
-            // const response = await axios.get('http://18.184.49.238:5000/readAll');
-            setDataFromServer(response.data);
-
+            const response = await readAll();
+            setDataFromServer(response);
         } catch (error) {
             console.log(error);
         }
     };
 
-    const handeClickOnYes = async (item: {
-        id: string;
-        deviceName: string;
-        deviceType: string;
-        ownerName: string;
-        batteryStatus: string
-    }) => {
-        axios.post('http://localhost:5000/deleteDevice', item).then((res) => {
-            // axios.post('http://18.184.49.238:5000/deleteDevice', valueOfDelete).then((res) => {
-            fetchData();
-        })
-    }
+    const handleSubmit = async (item: { id: string; deviceName: string; deviceType: string; ownerName: string; batteryStatus: string }) => {
 
+        try {
+            const response = await deleteDevice(item);
+            fetchData();
+            handleClose()
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <>
@@ -65,10 +61,9 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
                 <Modal.Body>Plese click <b>Delete</b> button to confirm action</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Cancel
                     </Button>
-                    {/* <Button variant="primary" onClick={handeClickOnYes}> */}
-                    <Button variant="primary" onClick={() => { handeClickOnYes(item) }}>
+                    <Button variant="primary" onClick={() => { handleSubmit(item) }}>
                         Delete
                     </Button>
                 </Modal.Footer>

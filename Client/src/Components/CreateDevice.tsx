@@ -1,9 +1,10 @@
-import React, { useState, ChangeEvent, FormEvent, MouseEvent, KeyboardEvent } from "react";
-import axios from "axios"
-import './CSS/CreateDevice.css'
+import React, { useState, ChangeEvent, KeyboardEvent } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { readAll, createDevice } from '../Communication/Communication';
+
+import '../Style/CreateDevice.css'
 
 type CreateDeviceProp = {
     setDataFromServer: React.Dispatch<React.SetStateAction<
@@ -67,9 +68,8 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/readAll');
-            // const response = await axios.get('http://18.184.49.238:5000/readAll');
-            setDataFromServer(response.data);
+            const response = await readAll();
+            setDataFromServer(response);
         } catch (error) {
             console.log(error);
         }
@@ -88,22 +88,21 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
         }
     }
 
-    const handleSubmit = () => {
-        // event.preventDefault();
+    const handleSubmit = async () => {
         validateForm();
 
         if (!deviceProp.deviceName || !deviceProp.deviceType || !deviceProp.ownerName) {
             return
         }
 
-        axios.post('http://localhost:5000/createDevice', deviceProp).then((res) => {
-            // axios.post('http://18.184.49.238:5000/createDevice', deviceProp).then((res) => {
+        try {
+            const response = await createDevice(deviceProp);
             fetchData();
             handleClose()
 
-        }).catch(error => {
-            console.log(error);
-        });
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -144,8 +143,9 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                                 onChange={handleChange as (event: ChangeEvent<HTMLSelectElement>) => void}
                                 onKeyDown={handleKeyPress}
                                 isInvalid={!!error.deviceType}
+                                value={deviceProp.deviceType}
                             >
-                                <option>select an option</option>
+                                <option value="">select an option</option>
                                 <option value="Smartphone">Smartphone</option>
                                 <option value="Tablet">Tablet</option>
                                 <option value="Camera">Camera</option>
@@ -169,7 +169,6 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Battery Status</Form.Label>
-                            {/* <Form.Control type="number" max={100} /> */}
                             <div style={{ display: 'flex', width: '100%', height: '100%' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', width: '85%' }}>
                                     <Form.Range
