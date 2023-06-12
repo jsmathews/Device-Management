@@ -92,25 +92,25 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
 
     let content;
     content = dataFromServer.map((item) => (
-        <div className="tableRows" key={item.id} >
-            <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', height: '50px', width: '20%' }}>
+        <div className="tableRows" key={item.id}>
+            <div className="tableDataContainer">
                 {item.deviceName || 'N/A'}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '20%' }}>
+            <div className="tableDataContainer">
                 {item.deviceType || 'N/A'}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '20%' }}>
+            <div className="tableDataContainer">
                 {item.ownerName || 'N/A'}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '20%' }}>
-                <div style={{ width: '60%', height: '50%', border: '1px solid black', borderRadius: '5px' }}>
-                    <div style={{ background: 'rgb(0,128,0,0.68)', height: '98%', border: '1px solid white', borderRadius: '5px', width: item.batteryStatus + '%' }}></div>
+            <div className="tableDataContainer">
+                <div className="batterIconContainer">
+                    <div style={{ width: item.batteryStatus + '%' }}></div>
                 </div>
-                <div style={{ height: '50%' }}>
+                <div className="batteryPercentageContainer" style={{ height: '50%' }}>
                     <b>{item.batteryStatus + "%"}</b>
                 </div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
+            <div className="tableDataContainer">
                 <UpdateDevice
                     item={item}
                     setDataFromServer={setDataFromServer}
@@ -124,53 +124,53 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
     ));
 
     return (
-        <div className="tableContainer" style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '90%', boxShadow: '0 0 20px rgba(0,0,0,0.15)' }}>
+        <div className="tableContainer">
             <div id='headerContainer'>
 
-                <div className='sortable-table-header selected' id='deviceName' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%', padding: '10px', boxSizing: 'content-box' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div className='sortable-table-header selected' id='deviceName' onClick={(event) => { handleClickOnSort(event) }}>
+                    <div className='sortIcon'>
                         {sorting.deviceName === 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        DEVICE NAME
+                    <div className="tableName">
+                        Device Name
                     </div>
                 </div>
 
-                <div className='sortable-table-header' id='deviceType' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div className='sortable-table-header' id='deviceType' onClick={(event) => { handleClickOnSort(event) }}>
+                    <div className='sortIcon'>
                         {sorting.deviceType === 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        DEVICE TYPE
+                    <div className="tableName">
+                        Device Type
                     </div>
                 </div>
 
-                <div className='sortable-table-header' id='ownerName' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div className='sortable-table-header' id='ownerName' onClick={(event) => { handleClickOnSort(event) }} >
+                    <div className='sortIcon'>
                         {sorting.ownerName === 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        OWNER NAME
+                    <div className="tableName">
+                        Owner Name
                     </div>
                 </div>
 
-                <div className='sortable-table-header' id='batteryStatus' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div className='sortable-table-header' id='batteryStatus' onClick={(event) => { handleClickOnSort(event) }} >
+                    <div className='sortIcon'>
                         {sorting.batteryStatus === 'ascending' ? (<i className="bi bi-sort-numeric-down"></i>) : < i className="bi bi-sort-numeric-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        BATTERY STATUS
+                    <div className="tableName">
+                        Battery Status
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%', height: '100%' }}>
-                        ACTION
+                <div>
+                    <div className="tableName">
+                        Action
                     </div>
                 </div>
-
             </div>
-            <div id='dataContainer' style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden scroll' }}>
+
+            <div id='dataContainer'>
                 {content}
             </div>
         </div >

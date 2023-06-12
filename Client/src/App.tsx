@@ -51,17 +51,15 @@ function App() {
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", position: 'relative' }} >
 
-      <div id='header' style={{
-        display: "flex", justifyContent: "flex-end", alignItems: "center", width: "100%", height: '10%',
-        backgroundColor: 'rgb(0, 98, 255, 0.9)', color: '#ffffff', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px'
-      }}>
+      <div id='header'>
+
         <div >
           <i className="bi bi-laptop" style={{ fontSize: '2em' }}></i>
         </div>
         <div style={{ fontWeight: 'bolder', fontSize: '1.5em', padding: '10px' }}>
           DEVICE MANAGEMENT APP
         </div>
-        {/* <h2>DEVICE MANAGEMENT APP</h2> */}
+
       </div>
 
       <div id='content' style={{ display: "flex", flexDirection: 'column', width: "100%", height: "90%", justifyContent: 'center', alignItems: 'center' }}>
