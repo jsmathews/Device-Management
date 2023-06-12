@@ -1,0 +1,27 @@
+:root {
+    --update-button-color: rgba(0, 98, 255, 0.9);
+    --update-button-color-hover: rgba(0, 98, 255, 1);
+    --update-button-border: rgb(0, 98, 255);
+}
+
+#updateDeviceButton {
+    background-color: var(--update-button-color);
+    border: 1px solid var(--update-button-border);
+}
+
+#updateDeviceButton:hover {
+    background-color: var(--update-button-color-hover);
+    border: 1px solid var(--update-button-border);
+}
+
+.updateButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%
+}
+
+.updateButtonContainer i {
+    cursor: pointer;
+}

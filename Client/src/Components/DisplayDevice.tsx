@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import { Delete } from "./Delete";
+import { Delete } from "./DeleteDevice";
 import { UpdateDevice } from "./UpdateDevice";
 
 import '../Style/DisplayDevice.css'
@@ -47,8 +47,8 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
 
     function sort(dataFromServer: Device, tableToSort: 'deviceName' | 'deviceType' | 'ownerName' | 'batteryStatus', sortOrder: 'ascending' | 'descending') {
 
-        if (tableToSort == 'batteryStatus') {
-            sortOrder == 'ascending'
+        if (tableToSort === 'batteryStatus') {
+            sortOrder === 'ascending'
                 ? dataFromServer.sort((a, b) => parseInt(a[tableToSort], 10) - parseInt(b[tableToSort], 10))
                 : dataFromServer.sort((a, b) => parseInt(b[tableToSort], 10) - parseInt(a[tableToSort], 10))
         }
@@ -58,10 +58,10 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
                 const nameB = b[tableToSort].toUpperCase();
 
                 if (nameA < nameB) {
-                    return sortOrder == 'ascending' ? -1 : 1;
+                    return sortOrder === 'ascending' ? -1 : 1;
                 }
                 if (nameA > nameB) {
-                    return sortOrder == 'ascending' ? 1 : -1;
+                    return sortOrder === 'ascending' ? 1 : -1;
                 }
                 return 0;
             })
@@ -77,11 +77,11 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
         let sortOrder: 'ascending' | 'descending';
 
         sortableHtmlElement.forEach((element, idx) => {
-            if (element.id == event.currentTarget.id) {
+            if (element.id === event.currentTarget.id) {
                 element.classList.add('selected');
                 targetElementId = element.id as targetElementType;
 
-                sortOrder = sorting[targetElementId] == 'ascending' ? 'descending' : 'ascending';
+                sortOrder = sorting[targetElementId] === 'ascending' ? 'descending' : 'ascending';
                 setSorting(prevData => ({ ...prevData, [targetElementId]: sortOrder, tableToSort: targetElementId, sortOrder: sortOrder }));
             }
             else {
@@ -92,7 +92,7 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
 
     let content;
     content = dataFromServer.map((item) => (
-        <div key={item.id} style={{ display: 'flex', flexDirection: 'row' }}>
+        <div className="tableRows" key={item.id} >
             <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', height: '50px', width: '20%' }}>
                 {item.deviceName || 'N/A'}
             </div>
@@ -124,42 +124,41 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
     ));
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-            <div id='headerContainer' style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '10%', fontFamily: 'Roboto-Medium' }}>
+        <div className="tableContainer" style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '90%', boxShadow: '0 0 20px rgba(0,0,0,0.15)' }}>
+            <div id='headerContainer'>
 
-
-                <div className='sortable-table-header selected' id='deviceName' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '20%', position: 'relative' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%', height: '100%' }}>
-                        {sorting.deviceName == 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
+                <div className='sortable-table-header selected' id='deviceName' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%', padding: '10px', boxSizing: 'content-box' }}>
+                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {sorting.deviceName === 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%', height: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         DEVICE NAME
                     </div>
                 </div>
 
                 <div className='sortable-table-header' id='deviceType' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%', height: '100%' }}>
-                        {sorting.deviceType == 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
+                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {sorting.deviceType === 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%', height: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         DEVICE TYPE
                     </div>
                 </div>
 
                 <div className='sortable-table-header' id='ownerName' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%', height: '100%' }}>
-                        {sorting.ownerName == 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
+                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {sorting.ownerName === 'ascending' ? (<i className="bi bi-sort-down"></i>) : <i className="bi bi-sort-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%', height: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         OWNER NAME
                     </div>
                 </div>
 
                 <div className='sortable-table-header' id='batteryStatus' onClick={(event) => { handleClickOnSort(event) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
-                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%', height: '100%' }}>
-                        {sorting.batteryStatus == 'ascending' ? (<i className="bi bi-sort-numeric-down"></i>) : < i className="bi bi-sort-numeric-up"></i>}
+                    <div className='sortIcon' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {sorting.batteryStatus === 'ascending' ? (<i className="bi bi-sort-numeric-down"></i>) : < i className="bi bi-sort-numeric-up"></i>}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%', height: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         BATTERY STATUS
                     </div>
                 </div>
@@ -174,6 +173,6 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
             <div id='dataContainer' style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden scroll' }}>
                 {content}
             </div>
-        </div>
+        </div >
     );
 }

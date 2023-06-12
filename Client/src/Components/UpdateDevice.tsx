@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { readAll, updateDevice } from '../Communication/Communication';
 
+import '../Style/UpdateDevice.css'
+
 type UpdateDeviceProp = {
     item: {
         id: string;
@@ -94,7 +96,7 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
         }
 
         try {
-            const response = await updateDevice(deviceProp);
+            await updateDevice(deviceProp);
             fetchData();
             handleClose()
 
@@ -111,7 +113,7 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '50%', height: '100%' }}>
+            <div className='updateButtonContainer' >
                 <i className="bi bi-pencil-square" style={{ fontSize: '1.3rem', color: 'green' }} onClick={handleShow}></i>
             </div>
 
@@ -131,6 +133,7 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
                                 onKeyDown={handleKeyPress}
                                 value={deviceProp.deviceName}
                                 isInvalid={!!error.deviceName}
+                                autoFocus
                             />
                             <Form.Control.Feedback type="invalid">{error.deviceName}</Form.Control.Feedback>
                         </Form.Group>
@@ -192,7 +195,7 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
                         Close
                     </Button>
 
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    <Button id='updateDeviceButton' variant="primary" type="submit" onClick={handleSubmit}>
                         Update
                     </Button>
                 </Modal.Footer>

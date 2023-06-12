@@ -1,98 +1,15 @@
-#createFormContainer {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 50vh;
-    height: 50vh;
-    background-color: rgb(26, 26, 26);
-    border-radius: 10px;
-    padding: 10px;
-    border: 1px solid #b6b6b6;
+:root {
+    --create-button-color: rgba(0, 98, 255, 0.9);
+    --create-button-color-hover: rgba(0, 98, 255, 1);
+    --create-button-border: rgb(0, 98, 255)
 }
 
-#createFormContainer form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    justify-content: space-evenly;
-    color: rgb(185, 184, 184);
-    font-weight: bold;
-    font-size: 1.5vh;
-    font-family: 'Roboto-Light';
+#createDeviceButton {
+    background-color: var(--create-button-color);
+    border: 2px solid var(--create-button-border);
 }
 
-#labelAndInputFieldContainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 20%;
-    align-items: center;
-    justify-content: center;
-}
-
-#labelContainer {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    width: 40%;
-    height: 100%;
-}
-
-#inputFieldContainer {
-    display: flex;
-    align-items: center;
-    width: 60%;
-    height: 100%;
-}
-
-#createFormContainer form div div input#inputField {
-    width: 90%;
-    height: 50%;
-    border: 0px;
-    padding: 2px;
-    background-color: rgb(50, 48, 48);
-    border-radius: 5px;
-    outline: none;
-    color: white;
-    font-family: 'Roboto-Medium';
-    font-size: 1.5vh;
-    letter-spacing: 0.5px;
-    box-sizing: border-box;
-}
-
-select#selectField {
-    width: 90%;
-    height: 50%;
-    border: 0px;
-    padding: 2px;
-    background-color: rgb(50, 48, 48);
-    border-radius: 5px;
-    outline: none;
-    color: white;
-    font-family: 'Roboto-Medium';
-    font-size: 1.5vh;
-    letter-spacing: 0.5px;
-}
-
-#submitButtonContainer {
-    display: flex;
-    width: 30%;
-    height: 50%
-}
-
-#submitButton {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background-color: rgb(50, 48, 48);
-    color: rgb(185, 184, 184);
-    font-family: 'Roboto-Medium';
-    font-size: 1.5vh;
-    border: 0px
-}
-
-#submitButton:hover {
-    background-color: #666666;
+#createDeviceButton:hover {
+    background-color: var(--create-button-color-hover);
+    border: 2px solid var(--create-button-border);
 }

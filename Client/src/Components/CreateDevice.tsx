@@ -96,7 +96,7 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
         }
 
         try {
-            const response = await createDevice(deviceProp);
+            await createDevice(deviceProp);
             fetchData();
             handleClose()
 
@@ -113,8 +113,8 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                ADD NEW DEVICE
+            <Button id="createDeviceButton" variant="primary" onClick={handleShow} >
+                Add New Device
             </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -131,6 +131,7 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                                 onChange={handleChange as (event: ChangeEvent<HTMLInputElement>) => void}
                                 onKeyDown={handleKeyPress}
                                 isInvalid={!!error.deviceName}
+                                autoFocus
                             />
                             <Form.Control.Feedback type="invalid">{error.deviceName}</Form.Control.Feedback>
                         </Form.Group>

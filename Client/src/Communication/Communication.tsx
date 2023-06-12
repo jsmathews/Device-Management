@@ -1,7 +1,7 @@
 import axios from "axios";
 
-var hostIp = 'localhost';
-// var hostIp =18.184.49.238; // AWS EC2 pubic ip
+// var hostIp = 'localhost';
+var hostIp = '3.125.42.40'; // AWS EC2 pubic ip
 var port = '5000' // port of API server
 
 var baseUrl = `http://${hostIp}:${port}/`

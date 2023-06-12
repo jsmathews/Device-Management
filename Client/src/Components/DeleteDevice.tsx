@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { readAll, deleteDevice } from '../Communication/Communication';
 
+import '../Style/DeleteDevice.css'
+
 type DeleteProp = {
     item: {
         id: string;
@@ -39,7 +41,7 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
     const handleSubmit = async (item: { id: string; deviceName: string; deviceType: string; ownerName: string; batteryStatus: string }) => {
 
         try {
-            const response = await deleteDevice(item);
+            await deleteDevice(item);
             fetchData();
             handleClose()
 
@@ -50,7 +52,7 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '50%', height: '100%' }}>
+            <div className='deleteButtonContainer' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '50%', height: '100%' }}>
                 <i className="bi bi-trash" style={{ fontSize: '1.3rem', color: 'red' }} onClick={handleShow}></i>
             </div>
 
@@ -63,7 +65,7 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={() => { handleSubmit(item) }}>
+                    <Button id="deleteDeviceButton" variant="primary" onClick={() => { handleSubmit(item) }}>
                         Delete
                     </Button>
                 </Modal.Footer>

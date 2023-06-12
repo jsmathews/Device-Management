@@ -3,7 +3,7 @@ import { CreateDevice } from './Components/CreateDevice';
 import { DisplayDevice } from './Components/DisplayDevice';
 import { readAll } from './Communication/Communication';
 
-import './App.css';
+import './Style/App.css'
 
 type DataFromServerProp = {
   id: string;
@@ -46,53 +46,38 @@ function App() {
 
     fetchData()
     console.log(process.env.REACT_APP_STATUS)
-  }, [])
-
-  // const handleClickOnSort = (event: MouseEvent<HTMLDivElement>) => {
-  //   let sortableHtmlElement = document.querySelectorAll('.sortable-table-header');
-  //   type targetElementType = 'deviceName' | 'deviceType' | 'ownerName' | 'batteryStatus';
-  //   let targetElementId: targetElementType;
-  //   let sortOrder: 'ascending' | 'descending';
-
-  //   sortableHtmlElement.forEach((element, idx) => {
-  //     if (element.id == event.currentTarget.id) {
-  //       element.classList.add('selected');
-  //       targetElementId = element.id as targetElementType;
-
-  //       sortOrder = sorting[targetElementId] == 'ascending' ? 'descending' : 'ascending';
-  //       setSorting(prevData => ({ ...prevData, [targetElementId]: sortOrder, tableToSort: targetElementId, sortOrder: sortOrder }));
-  //     }
-  //     else {
-  //       element.classList.remove('selected');
-  //     }
-  //   });
-
-  // };
+  }, []);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", position: 'relative' }} >
-      <div id='header' style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: '10%' }}>
-        <h2>DEVICE MANAGEMENT APP</h2>
+
+      <div id='header' style={{
+        display: "flex", justifyContent: "flex-end", alignItems: "center", width: "100%", height: '10%',
+        backgroundColor: 'rgb(0, 98, 255, 0.9)', color: '#ffffff', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px'
+      }}>
+        <div >
+          <i className="bi bi-laptop" style={{ fontSize: '2em' }}></i>
+        </div>
+        <div style={{ fontWeight: 'bolder', fontSize: '1.5em', padding: '10px' }}>
+          DEVICE MANAGEMENT APP
+        </div>
+        {/* <h2>DEVICE MANAGEMENT APP</h2> */}
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '10%', justifyContent: 'center' }}>
-        <CreateDevice setDataFromServer={setDataFromServer} />
-      </div>
+      <div id='content' style={{ display: "flex", flexDirection: 'column', width: "100%", height: "90%", justifyContent: 'center', alignItems: 'center' }}>
 
-      <div id='content' style={{ display: "flex", flexDirection: 'column', width: "100%", height: "80%", justifyContent: 'center', alignItems: 'center' }}>
-
-
-        <div style={{ width: "80%", height: "80%" }}>
-          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-
-            <DisplayDevice
-              dataFromServer={dataFromServer}
-              setDataFromServer={setDataFromServer}
-              sorting={sorting}
-              setSorting={setSorting}
-            />
-
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: "80%", height: "80%" }}>
+          <div>
+            <CreateDevice setDataFromServer={setDataFromServer} />
           </div>
+
+          <DisplayDevice
+            dataFromServer={dataFromServer}
+            setDataFromServer={setDataFromServer}
+            sorting={sorting}
+            setSorting={setSorting}
+          />
+
         </div>
 
       </div>
