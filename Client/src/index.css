@@ -1,19 +1,19 @@
 @font-face {
   font-family: "Roboto-Bold";
   src: local("Roboto-Bold"),
-    url("./Fonts/Roboto-Bold.ttf") format("truetype");
+    url("./fonts/Roboto-Bold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Roboto-Light";
   src: local("Roboto-Light"),
-    url("./Fonts/Roboto-Light.ttf") format("truetype");
+    url("./fonts/Roboto-Light.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Roboto-Medium";
   src: local("Roboto-Medium"),
-    url("./Fonts/Roboto-Medium.ttf") format("truetype");
+    url("./fonts/Roboto-Medium.ttf") format("truetype");
 }
 
 body {

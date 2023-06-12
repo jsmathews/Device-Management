@@ -49,7 +49,7 @@ function App() {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", position: 'relative' }} >
+    <div id='app'>
 
       <div id='header'>
 
@@ -57,14 +57,15 @@ function App() {
           <i className="bi bi-laptop" style={{ fontSize: '2em' }}></i>
         </div>
         <div style={{ fontWeight: 'bolder', fontSize: '1.5em', padding: '10px' }}>
-          DEVICE MANAGEMENT APP
+          DEVICE MANAGEMENT
         </div>
 
       </div>
 
-      <div id='content' style={{ display: "flex", flexDirection: 'column', width: "100%", height: "90%", justifyContent: 'center', alignItems: 'center' }}>
+      <div id='content'>
 
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: "80%", height: "80%" }}>
+        <div>
+
           <div>
             <CreateDevice setDataFromServer={setDataFromServer} />
           </div>

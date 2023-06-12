@@ -53,7 +53,6 @@ function connectToMySQL() {
         db.query('SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?', ['mydb'], (err, rows) => {
             if (err) {
                 console.error('Error checking database existence:', err);
-                // db.end(); // Close the MySQL db
                 return;
             }
 
@@ -62,27 +61,22 @@ function connectToMySQL() {
                 db.query('CREATE DATABASE mydb', (err) => {
                     if (err) {
                         console.error('Error creating database:', err);
-                        // db.end(); // Close the MySQL db
                         return;
                     }
                     console.log('Database created successfully');
-                    // createTable();
                     checkOrCreateTable();
                 });
             }
             else {
                 // Database already exists, create the table
-                // createTable();
                 checkOrCreateTable()
             }
         });
 
         function checkOrCreateTable() {
-            // Use the "mydb" database
             db.query('USE mydb', (err) => {
                 if (err) {
                     console.error('Error using database:', err);
-                    // db.end();
                     return;
                 }
 
@@ -90,13 +84,11 @@ function connectToMySQL() {
                 db.query('SHOW TABLES LIKE "deviceproperty"', (err, results) => {
                     if (err) {
                         console.error('Error checking table:', err);
-                        // db.end();
                         return;
                     }
 
                     if (results.length > 0) {
                         console.log('Table "deviceproperty" exists');
-                        // db.end();
                     }
                     else {
                         // Create the "deviceproperty" table
@@ -113,12 +105,10 @@ function connectToMySQL() {
                         db.query(createTableQuery, (err) => {
                             if (err) {
                                 console.error('Error creating table:', err);
-                                // db.end();
                                 return;
                             }
 
                             console.log('Table "deviceproperty" created');
-                            // db.end();
                         });
                     }
                 });
@@ -173,7 +163,6 @@ app.get('/readAll', (req, res) => {
 })
 
 app.post('/createDevice', (req, res) => {
-    console.log('New Data: ', req.body);
 
     var q = "INSERT INTO mydb.deviceproperty (deviceName, deviceType, ownerName, batteryStatus) VALUES (?)";
     const values = [
