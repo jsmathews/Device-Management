@@ -10,7 +10,9 @@
 ## General info
 This is a simple Device management app using React.js as frontend framework, Node.js for backend and MySQL for database. This allows the uer to create, read, update and delete the data.
 They are then containirised using Docker and served through Docker-compose.
-![DeviceManagement](https://github.com/jsmathews/ReactAppWithTypeScript/assets/38797524/a6d63935-0191-4666-b953-052c50aa91c3)
+
+![DeviceManagement](https://github.com/jsmathews/ReactAppWithTypeScript/assets/38797524/d11b1131-a3c1-4691-b96d-a8d296753494)
+
 ## Features
 - User can create new device information.
 - User can view the list of all stored device information.
