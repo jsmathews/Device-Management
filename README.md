@@ -4,6 +4,9 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 
+# Live Demo: 
+* http://ec2-18-184-49-238.eu-central-1.compute.amazonaws.com:3000/
+
 ## General info
 This is a simple Device management app using React.js as frontend framework, Node.js for backend and MySQL for database. This allows the uer to create, read, update and delete the data.
 They are then containirised using Docker and served through Docker-compose.
@@ -32,6 +35,3 @@ $ docker-compose build
 $ docker-compose up
 ```
 * After docker running successfully, open the link: http://localhost:3000
-
-## Live Demo: 
-* http://ec2-18-184-49-238.eu-central-1.compute.amazonaws.com:3000/
