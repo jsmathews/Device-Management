@@ -97,7 +97,7 @@
 }
 
 .batterIconContainer>div {
-    background: rgb(0, 128, 0, 0.68);
+    /* background: rgb(0, 128, 0, 0.68); */
     height: 98%;
     border: 1px solid white;
     border-radius: 5px
