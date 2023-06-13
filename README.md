@@ -5,7 +5,7 @@
 * [Setup](#setup)
 
 # Live Demo
-* http://ec2-18-184-49-238.eu-central-1.compute.amazonaws.com:3000/
+* http://ec2-3-68-189-82.eu-central-1.compute.amazonaws.com:3000/
 
 ## General info
 This is a simple Device management app using React.js as frontend framework, Node.js for backend and MySQL for database. This allows the uer to create, read, update and delete the data.
