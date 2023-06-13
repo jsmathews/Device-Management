@@ -4,7 +4,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 
-# Live Demo: 
+# Live Demo
 * http://ec2-18-184-49-238.eu-central-1.compute.amazonaws.com:3000/
 
 ## General info
