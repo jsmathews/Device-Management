@@ -5,11 +5,11 @@
 * [Setup](#setup)
 
 ## General info
-This project is a simple Device management app using React + Typescript for frontend, Node.js for backend and MySQL for database. This allows the uer to create, read, update and delete the data.
+This is a simple Device management app using React.js as frontend framework, Node.js for backend and MySQL for database. This allows the uer to create, read, update and delete the data.
 They are then containirised using Docker and served through Docker-compose.
 ![DeviceManagement](https://github.com/jsmathews/ReactAppWithTypeScript/assets/38797524/a6d63935-0191-4666-b953-052c50aa91c3)
 ## Features
-- User can create store new device information.
+- User can create new device information.
 - User can view the list of all stored device information.
 - User can update the stored device information.
 - User can delete the stored device information.
@@ -31,3 +31,7 @@ $ Clone the project and execute the below commands in the root directory of the 
 $ docker-compose build
 $ docker-compose up
 ```
+* After docker running successfully, open the link: http://localhost:3000
+
+## Live Demo: 
+* http://ec2-18-184-49-238.eu-central-1.compute.amazonaws.com:3000/
