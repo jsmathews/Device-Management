@@ -1,5 +1,5 @@
 # Server
-To run this project, follow the below steps:
+To start the server, follow the below steps:
 
 ## Install dependencies
 ```
