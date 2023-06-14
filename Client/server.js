@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.REACT_APP_PORT || 3000;
 app.listen(PORT, (error) => {
     if (error) {
         console.error('An error occurred while starting the server:', error);

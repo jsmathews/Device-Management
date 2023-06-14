@@ -45,7 +45,6 @@ function App() {
     };
 
     fetchData()
-    console.log(process.env.REACT_APP_STATUS)
   }, []);
 
   return (

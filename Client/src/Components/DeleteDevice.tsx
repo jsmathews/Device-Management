@@ -57,7 +57,7 @@ export function Delete({ item, setDataFromServer }: DeleteProp) {
             </div>
 
             <Modal style={{ color: 'black' }} show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton className="titleHeader">
                     <Modal.Title>Delete device</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Plese click <b>Delete</b> button to confirm action</Modal.Body>

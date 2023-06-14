@@ -1,8 +1,7 @@
 import axios from "axios";
 
-var hostIp = '192.168.178.22';
-// var hostIp = '3.125.42.40'; // AWS EC2 pubic ip
-var port = '5000' // port of API server
+var hostIp = process.env.REACT_APP_HOST;
+var port = process.env.REACT_APP_API_PORT;
 
 var baseUrl = `http://${hostIp}:${port}/`
 
