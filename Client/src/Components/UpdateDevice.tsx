@@ -119,7 +119,7 @@ export function UpdateDevice({ item, setDataFromServer }: UpdateDeviceProp) {
 
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton className="titleHeader">
                     <Modal.Title>Update Device</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

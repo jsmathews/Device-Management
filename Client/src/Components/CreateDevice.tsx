@@ -114,11 +114,11 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
     return (
         <>
             <Button id="createDeviceButton" variant="primary" onClick={handleShow} >
-                Add New Device
+                <i className="bi bi-plus-square"></i> Add New Device
             </Button>
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton className="titleHeader">
                     <Modal.Title>Create New Device</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -191,7 +191,7 @@ function CreateDevice({ setDataFromServer }: CreateDeviceProp) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    <Button id="createButton-popup" variant="primary" type="submit" onClick={handleSubmit}>
                         Create
                     </Button>
                 </Modal.Footer>

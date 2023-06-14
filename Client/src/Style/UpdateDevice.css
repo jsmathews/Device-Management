@@ -1,17 +1,17 @@
 :root {
-    --update-button-color: rgba(0, 98, 255, 0.9);
-    --update-button-color-hover: rgba(0, 98, 255, 1);
-    --update-button-border: rgb(0, 98, 255);
+    --update-button-popup: rgba(2, 35, 66, 0.9);
+    --update-button-popup-hover: rgba(2, 35, 66, 1);
+    --update-button-popup-border: rgb(2, 35, 66);
 }
 
 #updateDeviceButton {
-    background-color: var(--update-button-color);
-    border: 1px solid var(--update-button-border);
+    background-color: var(--update-button-popup);
+    border: 1px solid var(--update-button-popup-border);
 }
 
 #updateDeviceButton:hover {
-    background-color: var(--update-button-color-hover);
-    border: 1px solid var(--update-button-border);
+    background-color: var(--update-button-popup-hover);
+    border: 1px solid var(--update-button-popup-border);
 }
 
 .updateButtonContainer {
@@ -24,4 +24,14 @@
 
 .updateButtonContainer i {
     cursor: pointer;
+}
+
+.titleHeader {
+    color: #ffffff;
+    background-color: #022342;
+}
+
+.titleHeader>button {
+    opacity: 1;
+    filter: brightness(0) invert(1);
 }

@@ -36,17 +36,16 @@ code {
   font-family: "Roboto-Light"
 }
 
-#dataContainer::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 8px;
 }
 
-#dataContainer::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: #bebebe;
   border-radius: 20px;
-  border: 3px solid black;
 }
 
-#dataContainer {
+* {
   scrollbar-width: thin;
   scrollbar-color: #bebebe;
 }
@@ -57,4 +56,38 @@ input[type="checkbox"] {
   width: 30%;
   height: 30%;
   margin-right: 20%;
+}
+
+/* For Chrome */
+input[type="range"]::-webkit-slider-thumb {
+  background-color: rgba(2, 35, 66, 0.9);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  background-color: rgba(2, 35, 66, 1);
+}
+
+/* For Chrome */
+input[type="range"]::-webkit-slider-runnable-track {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* input[type="range"]:active::-webkit-slider-thumb {
+  background-color: yellow;
+} */
+
+input[type="range"]::-moz-range-thumb {
+  background-color: rgba(2, 35, 66, 0.9);
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+  background-color: rgba(2, 35, 66, 1);
+}
+
+/* input[type="range"]:active::-moz-range-thumb {
+  background-color: yellow;
+} */
+
+input[type="range"]::-moz-range-track {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }

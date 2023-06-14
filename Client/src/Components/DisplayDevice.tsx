@@ -104,7 +104,10 @@ export function DisplayDevice({ dataFromServer, setDataFromServer, sorting, setS
             </div>
             <div className="tableDataContainer">
                 <div className="batterIconContainer">
-                    <div style={{ width: item.batteryStatus + '%', backgroundColor: item.batteryStatus < '30' ? 'rgba(255, 0, 0, 0.68)' : 'rgba(0,128,0,0.68)' }}></div>
+                    <div style={{
+                        width: item.batteryStatus + '%',
+                        backgroundColor: parseInt(item.batteryStatus, 10) <= 20 ? 'rgba(255, 0, 0, 0.68)' : parseInt(item.batteryStatus, 10) < 50 ? 'rgba(255,215,0,0.68)' : 'rgba(0,128,0,0.68)'
+                    }}></div>
                 </div>
                 <div className="batteryPercentageContainer" style={{ height: '50%' }}>
                     <b>{item.batteryStatus + "%"}</b>

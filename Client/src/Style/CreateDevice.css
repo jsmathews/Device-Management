@@ -1,7 +1,15 @@
 :root {
-    --create-button-color: rgba(0, 98, 255, 0.9);
+    /* --create-button-color: rgba(0, 98, 255, 0.9);
     --create-button-color-hover: rgba(0, 98, 255, 1);
-    --create-button-border: rgb(0, 98, 255)
+    --create-button-border: rgb(0, 98, 255); */
+
+    --create-button-color: rgba(0, 128, 0, 0.9);
+    --create-button-color-hover: rgba(0, 128, 0, 1);
+    --create-button-border: rgba(0, 128, 0, 0.68);
+
+    --create-button-popup: rgba(2, 35, 66, 0.9);
+    --create-button-popup-hover: rgba(2, 35, 66, 1);
+    --create-button-popup-border: rgb(2, 35, 66)
 }
 
 #createDeviceButton {
@@ -12,4 +20,19 @@
 #createDeviceButton:hover {
     background-color: var(--create-button-color-hover);
     border: 2px solid var(--create-button-border);
+}
+
+.titleHeader {
+    color: #ffffff;
+    background-color: #022342;
+}
+
+.titleHeader>button {
+    opacity: 1;
+    filter: brightness(0) invert(1);
+}
+
+#createButton-popup {
+    background-color: var(--create-button-popup);
+    border: 2px solid var(--create-button-popup-border);
 }

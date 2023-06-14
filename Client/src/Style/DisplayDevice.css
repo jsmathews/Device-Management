@@ -1,5 +1,5 @@
 :root {
-    --table-header-color: rgba(0, 98, 255, 0.9);
+    --table-header-color: rgba(2, 35, 66, 1);
 }
 
 .tableContainer {
@@ -7,7 +7,34 @@
     flex-direction: column;
     width: 100%;
     height: 90%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25)
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+
+    /* CSS rules for mobile devices */
+    .tableContainer {
+        min-width: 550px;
+        min-height: 200px;
+        font-size: small;
+    }
+}
+
+/* Media query for tablet devices */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .tableContainer {
+        min-width: 50%;
+        min-height: 300px;
+    }
+}
+
+/* Media query for desktop devices */
+@media (min-width: 1024px) {
+    .tableContainer {
+        min-width: 800px;
+        min-height: 400px;
+    }
 }
 
 #headerContainer {
@@ -15,6 +42,7 @@
     flex-direction: row;
     width: 100%;
     height: 10%;
+    font-weight: bold;
     background-color: var(--table-header-color);
     color: #ffffff;
     border-top-left-radius: 5px;

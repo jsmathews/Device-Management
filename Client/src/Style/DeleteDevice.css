@@ -1,17 +1,17 @@
 :root {
-    --delete-button-color: rgba(0, 98, 255, 0.9);
-    --delete-button-color-hover: rgba(0, 98, 255, 1);
-    --delete-button-border: rgb(0, 98, 255);
+    --delete-button-popup: rgba(2, 35, 66, 0.9);
+    --delete-button-popup-hover: rgba(2, 35, 66, 1);
+    --delete-button-popup-border: rgb(2, 35, 66);
 }
 
 #deleteDeviceButton {
-    background-color: var(--delete-button-color);
-    border: 1px solid var(--delete-button-border);
+    background-color: var(--delete-button-popup);
+    border: 1px solid var(--delete-button-popup-border);
 }
 
 #deleteDeviceButton:hover {
-    background-color: var(--delete-button-color-hover);
-    border: 1px solid var(--delete-button-border);
+    background-color: var(--delete-button-popup-hover);
+    border: 1px solid var(--delete-button-popup-border);
 }
 
 .deleteButtonContainer {
